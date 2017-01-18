@@ -1,0 +1,106 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='addnew'||$action=='edit'}-->
+<div class="main-div">
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="checkSubmit(document.form1)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+    <span class="ctrlenter">¡¡{$lang.ctrlenter}</span>
+</div>
+  <form action="{$smarty.server.PHP_SELF}?action=save" method="post" name="form1">
+    <input type="hidden" name="id" value="{$article.id}" />
+    <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+      <tr>
+        <td width="80">{$lang.about_title}£º</td>
+        <td>
+		   <input name="title" type="text" value="{$article.title}" class="textinput" style="width:386px;" />
+		   <span class="btn btn-dft" onclick="checkValue(document.form1.title.value,'&action=checktitle','{$lang.article_exists}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.checkrepeat}</span></span>
+		</td>
+      </tr>
+      <tr>
+        <td>{$lang.add_to_nav}£º</td>
+        <td>
+		   <input type="radio" name="add_to_nav" value="1" $article.nav_show!==0} checked="checked" {if {/if} /> {$lang.yes}¡¡
+           <input type="radio" name="add_to_nav" value="0" $article.nav_show==0} checked="checked" {if {/if} /> {$lang.no}
+		</td>
+      </tr>
+      <tr>
+        <td>{$lang.keywords}£º</td>
+        <td><textarea name="keywords"  class="textinput" style="width:460px; height:60px;">{$article.keywords}</textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2">{$editor}</td>
+        </tr>
+    </table>
+  </form>
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="checkSubmit(document.form1)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+{literal}
+<script language="javascript">
+var hassubmited = false;
+function checkSubmit(theForm){
+	if(hassubmited)return false;
+	if(!trimStr(theForm.title.value)){
+		showError(about_title_empty);
+		return false;
+	}else{
+		hassubmited = true;
+		theForm.submit();
+		return true;
+	}
+}
+
+document.onkeydown = function(e){
+	e=window.event||e;
+	if(e.ctrlKey&&e.keyCode==13){
+	   checkSubmit(document.form1);
+	}
+}
+</script>
+{/literal}
+<!--{else}-->
+<div class="main-div">
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'"><span>{$lang.add_article}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+    <tr>
+      <th width="20"><input type="checkbox" onclick="checkAll(this,'id[]')" /></th>
+	  <th width="15" class="tocenter"><img src="images/icon_view.gif" /></th>
+      <th width="160">{$lang.about_title}</th>
+	  <th>{$lang.keywords}</th>
+	  <th width="80">{$lang.author}</th>
+	  <th width="145" class="last">{$lang.dateline}</td>
+    </tr>
+	<!--{foreach from=$articles item=arc}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td><input type="checkbox" name="id[]" value="{$arc.id}" onclick="checkThis(this)" /></td>
+	  <td class="tocenter"><a href="../about.php?id={$arc.id}" target="_blank"><img src="images/icon_view.gif" border="0" title="{$lang.views}" /></a></td>
+      <td><a href="{$smarty.server.PHP_SELF}?action=edit&id={$arc.id}">{$arc.title}</a></td>
+	  <td><span title="{$lang.click_edit}" onclick="Edit(this,'edit_kw',{$arc.id})">{$arc.keywords}</span></td>
+	  <td>{$arc.admin_user}</td>
+	  <td><span class="mdate">{$arc.dateline|date_format:'%Y-%m-%d %H:%M:%S'}</span></td>
+    </tr>
+	<!--{/foreach}-->
+	<tr><td colspan="5">{$lang.select}:
+		<a href="javascript:;" onclick="selectAll('id[]')">{$lang.selectall}</a> - 
+		<a href="javascript:;" onclick="cancelAll('id[]')">{$lang.noselect}</a> - 
+		<a href="javascript:;" onclick="reverseAll('id[]')">{$lang.reverseselect}</a>
+	</td></tr>
+  </table>
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'"><span>{$lang.add_article}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<!--{/if}-->

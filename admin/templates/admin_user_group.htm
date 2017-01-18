@@ -1,0 +1,106 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='addnew'||$action=='edit'}-->
+<div class="main-div">
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="check_group_submit(document.group)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{if $action=='add'}{$lang.save}{else}{$lang.save_edit}{/if}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<form name="group" method="post" action="{$smarty.server.PHP_SLEF}?action=save">
+  <input type="hidden" name="group_id" value="{$group.group_id}" />
+  <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+    <tr>
+      <td width="90">{$lang.group_name}£º</td>
+      <td><input name="groupname" type="text" class="textinput" id="groupname" style="width:240px;" value="{$group.groupname}" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.group_min}£º</td>
+      <td><input name="minexp" type="text" class="textinput" id="minexp" style="width:240px;" value="{$group.minexp}" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.group_max}£º</td>
+      <td><input name="maxexp" type="text" class="textinput" id="maxexp" style="width:240px;" value="{$group.maxexp}" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.group_special}£º</td>
+      <td>
+	    <input type="radio" name="type" value="1"{if $group.type==1} checked="checked"{/if} /> {$lang.yes}¡¡
+        <input type="radio" name="type" value="0"{if $group.type!=1} checked="checked"{/if}  /> {$lang.no}
+	  </td>
+    </tr>
+    <tr>
+      <td>{$lang.remark}£º</td>
+      <td><textarea name="notes" id="notes" style="width:500px; height:50px;">{$group.notes}</textarea></td>
+    </tr>
+  </table>
+</form>
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="check_group_submit(document.group)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{if $action=='add'}{$lang.save}{else}{$lang.save_edit}{/if}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<script language="javascript" type="text/javascript">
+var group_name_empty='{$lang.group_name_empty}';
+var group_min_empty='{$lang.group_min_empty}';
+var group_max_empty='{$lang.group_max_empty}';
+{literal}
+function check_group_submit(obj){
+   if(!obj.groupname.value){
+	  showError(group_name_empty);
+	  return false;
+   }
+   if(!obj.minexp.value){
+       showError(group_min_empty);
+	   return false;
+   }
+   if(!obj.maxexp.value){
+	  showError(group_max_empty)
+	  return false;
+   }
+   obj.submit();
+   return true;
+}{/literal}
+</script>
+<!--{else}-->
+<div class="main-div">
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="Drop('group_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=add')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.group_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+    <tr>
+	  <th width="20"><input type="checkbox" onclick="checkAll(this,'group_id[]')" /></th>
+      <th width="15" style="text-align:center;">ID</th>
+      <th width="200">{$lang.group_name}</th>
+      <th width="60">{$lang.group_min}</th>
+      <th width="60">{$lang.group_max}</th>
+      <th width="60" style="text-align:center;">{$lang.group_special}</th>
+      <th class="last">{$lang.remark}</th>
+    </tr>
+	<!--{foreach from=$groups item=gp key=key}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+	  <td><input type="checkbox" name="groupid[]" value="{$gp.groupid}" /></td>
+      <td style="text-align:center;">{$gp.groupid}</td>
+      <td onmouseover="showMenuBox({$key})" onmouseout="hideMenuBox({$key})"><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_name',{$gp.groupid})">{$gp.groupname}</span>
+	      <span class="c_box" id="box_{$key}">
+		       <b class="icon-edit" title="{$lang.edit}" onclick="window.location='{$smarty.server.PHP_SELF}?action=edit&groupid={$gp.groupid}'"></b>
+			   <b class="icon-drop" title="{$lang.drop}" onclick="DropOne({$gp.groupid})"></b>
+		  </span>
+	  </td>
+      <td><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_min',{$gp.groupid})">{$gp.minexp}</span></td>
+      <td><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_max',{$gp.groupid})">{$gp.maxexp}</span></td>
+      <td style="text-align:center;"><img title="{$lang.click_switch}" src="{if $gp.type==1}images/yes.gif{else}images/no.gif{/if}" onclick="javascript:toggle(this,'edit_type',{$gp.groupid})" /></td>
+      <td><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_desc',{$gp.groupid})">{$gp.notes}</span></td>
+    </tr>
+	<!--{/foreach}-->
+  </table>
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="Drop('group_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=add')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.group_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<!--{/if}-->

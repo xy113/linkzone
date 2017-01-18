@@ -1,0 +1,28 @@
+<div class="topdiv">
+	<div class="logo"><img src="images/logo.png" border="0" title="{$cfg.sysname}" /></div>
+	<div class="topright">{foreach from=$navs.top.0 item=nav}<a href="{$nav.nav_link}"{$nav.target}>{$nav.nav_name}</a>¡¡{/foreach}</div>
+	<div class="clear"></div>
+</div>
+<ul class="nav" id="globalNav">
+   <li><a href="/">Ê×¡¡Ò³</a></li>
+   <!--{foreach from=$navs.mid.0 item=nav name=midnav}-->
+   <!--{assign var='sub' value=$nav.nav_id}-->
+   <li><a href="{$nav.nav_link}"{$nav.target}>{$nav.nav_name}</a>
+   		<!--{if $navs.mid.$sub}-->
+		<ul>
+			<!--{foreach from=$navs.mid.$sub item=subnav}-->
+			<li><a href="{$subnav.nav_link}"{$subnav.target}>{$subnav.nav_name}</a></li>
+			<!--{/foreach}-->
+		</ul>
+		<!--{/if}-->
+   </li>
+   <!--{/foreach}-->
+</ul>
+{literal}
+<script type="text/javascript">
+$("#globalNav>li").mouseenter(function(){
+	$(this).find("ul").show();
+}).mouseleave(function(){
+	$(this).find('ul').hide();
+});
+</script>{/literal}

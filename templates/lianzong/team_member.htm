@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{$member.name}_{$member.tname}_{$cfg.sysname}</title>
+<meta name="keywords" content="{$cfg.keywords}" />
+<meta name="description" content="{$cfg.description}" />
+<link href="images/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+</head>
+
+<body>
+{include file='header.htm'}
+<div class="area">
+	<div class="left01" id="teammember">
+		<div class="banner"><script src="js/banner.js"></script></div>
+		<div class="yourpos"><a href="index.php">首页</a> >> {$member.tname} >> {$member.name}</div>
+		<div class="title-gray">{$member.tname}</div>
+		<p><img src="{$member.photo}" border="0" /></p>
+		<p><strong>{$member.name}</strong></p>
+		<p>联系电话：{$member.tel}</p>
+		<p>电子邮箱：<a href="mailto:{$member.email}">{$member.email}</a></p>
+		<p>个人主页：{if $member.homepage}<a href="{$member.homepage}" target="_blank">{$member.homepage}</a>{else}<a href="http://www.linkzone.cn/team_member.php?mid={$member.mid}">http://www.linkzone.cn/team_member.php?mid={$member.mid}</a>{/if}</p>
+		<p>{$member.profile}</p>
+	</div>
+	<div class="right01" id="right">
+		<div class="title-big">连纵团队</div>
+		<ul class="titlelist">
+			<!--{foreach from=$teams item=aa}-->
+			<li><a href="team.php?tid={$aa.tid}"{if $member.tid==$aa.tid} class="selected"{/if}>{$aa.name}</a></li>
+			<!--{/foreach}-->
+		</ul>
+		<div class="blank"></div>
+		<div id="lhhz"><img src="images/pic-2.jpg" width="245" border="0" /></div>
+	</div>
+	<div class="clear"></div>
+</div>
+{include file='footer.htm'}

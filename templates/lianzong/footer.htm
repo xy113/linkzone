@@ -1,0 +1,13 @@
+<!--<script type="text/javascript">$("#right").css('height',$("#left").height()+'px');</script>-->
+<div class="blank"></div>
+<div class="area">
+    <div class="footer" id="bottom">
+	<!--{foreach from=$navs.bot.0 item=nav name=botnav}-->
+	<a href="{$nav.nav_link}"{$nav.target}>{$nav.nav_name}</a>{if !$smarty.foreach.botnav.last} | {/if}
+	<!--{/foreach}-->
+	</div>
+	<div class="footer">{$cfg.copyright} Powered By <a href="http://www.songdewei.com/" target="_blank">XSCMS</a></div>
+	<div class="footer">备案号:<a href="http://www.miibeian.gov.cn" target="_blank">{$cfg.icp}</a> - {$cfg.tongjicode} - <a href="http://www.songdewei.com" target="_blank">大师兄科技</a></div>
+</div>
+</body>
+</html>

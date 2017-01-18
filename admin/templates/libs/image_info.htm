@@ -1,0 +1,96 @@
+<div class="main-div">
+	<div class="toolbar">
+		<span class="btn btn-dft" onclick="return check_image_submit(document.image)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+		<!--{if $action=='edit'}-->
+		<span class="btn btn-dft" onclick="DropOne({$image.id},'&cid={$image.cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+		<!--{/if}-->
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+		<span class="ctrlenter">¡¡{$lang.ctrlenter}</span>
+	</div>
+	<form name="image" method="post" action="{$smarty.server.PHP_SELF}?action=save">
+	<input type="hidden" name="id" value="{$image.id}" />
+	<table border="0"cellpadding="0" cellspacing="0" class="form-table">
+		<tr>
+		  <td width="60">{$lang.image_title}£º</td>
+		  <td>
+		   <input name="title" type="text" value="{$image.title}" class="textinput" style="width:400px;" tabindex="5" maxlength="50" />
+		   <span class="btn btn-dft" onclick="checkValue(document.image.title.value,'&action=checktitle','{$lang.title_exists}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.checkrepeat}</span></span>
+		  </td>
+		</tr>
+		<tr>
+		  <td>{$lang.tags}£º</td>
+		  <td><input name="tags" type="text" value="{$image.tags}" class="textinput" style="width:400px;" tabindex="5" maxlength="50" /></td>
+		</tr>
+		<tr>
+		  <td>{$lang.image_cat}£º</td>
+		  <td>
+			  <select name="cid" style="vertical-align:middle;">
+				<!--{foreach from=$category.0 item=group}-->
+				<option value="{$group.cid}"{$group.selected} class="big"{if $group.disabled==1} disabled="disabled"{/if}>{$group.name}</option>
+				<!--{assign var='sub' value=$group.cid}-->
+				<!--{foreach from=$category.$sub item=menu}-->
+				<option value="{$menu.cid}"{$menu.selected}{if $menu.disabled==1} disabled="disabled"{/if}>¡¡&raquo;{$menu.name}</option>
+				<!--{/foreach}-->
+				<!--{/foreach}-->
+			  </select>¡¡
+		  </td>
+		</tr>
+		<tr>
+		  <td>{$lang.image_cover}£º</td>
+		  <td>
+		   <input type="text" name="image" value="{$image.image}" class="textinput" size="55" />
+		   <span class="btn btn-dft" onclick="OpenDialog('image.image')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.upload}</span></span>
+		 </td>
+		</tr>
+		<tr>
+		  <td>{$lang.image_content}£º</td>
+		  <td><textarea name="content" style="width:98%; height:200px;">{$image.content}</textarea></td>
+		</tr>
+		<tr>
+		    <td></td>
+			<td>
+			   <input type="checkbox" name="allowcomment" value="1"{if $image.allowcomment==1} checked="checked"{/if} /> {$lang.allowcomment}¡¡
+			   <input type="checkbox" name="allowvote" value="1"{if $image.allowvote==1} checked="checked"{/if} /> {$lang.allowvote}¡¡
+			   <input type="checkbox" name="recommend" value="1"{if $image.recommend==1} checked="checked"{/if} /> {$lang.setrecommend}¡¡
+			   <input type="checkbox" name="audited" value="1"{if $image.audited==1} checked="checked"{/if} /> {$lang.passaudited}¡¡
+			</td>
+		</tr>
+	</table>
+	</form>
+	<div class="toolbar">
+		<span class="btn btn-dft" onclick="return check_image_submit(document.image)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+		<!--{if $action=='edit'}-->
+		<span class="btn btn-dft" onclick="DropOne({$image.id},'&cid={$image.cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+		<!--{/if}-->
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+	</div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+var hassubmited = false;
+function check_image_submit(obj){
+	if(hassubmited)return false;
+	if(!trimStr(obj.title.value)){
+		showError(img_title_empty);
+		return false;
+	}
+	if(!obj.image.value){
+		showError(img_cover_empty);
+		return false;
+	}
+	hassubmited = true;
+	obj.submit();
+	return true;
+}
+
+document.onkeydown = function(e){
+	e=window.event||e;
+	if(e.ctrlKey&&e.keyCode==13){
+	   check_image_submit(document.image);
+	   return false;
+	}
+}
+</script>
+{/literal}

@@ -1,0 +1,112 @@
+<div class="main-div">
+	<div class="toolbar">
+		<span class="btn btn-dft" onclick="return check_article_submit(document.article)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{if $action=='addnew'}{$lang.save_article}{else}{$lang.save_edit}{/if}</span></span>
+		{if $smarty.get.action=='edit'}
+		<span class="btn btn-dft" onclick="DropOne({$article.id},'&cid={$article.cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+	    <span class="ctrlenter">°°{$lang.ctrlenter}</span>
+	</div>
+	<form action="{$smarty.server.PHP_SELF}?action=save" method="post" name="article">
+	<input type="hidden" name="id" value="{$article.id}" />
+	<table cellspacing="0" cellpadding="0" class="form-table">
+		<tr>
+			<td width="65">{$lang.article_title}£∫</td>
+		    <td>
+			<input name="title" class="textinput" type="text" value="{$article.title}" tabindex="5" size="55" maxlength="50" />
+			<span class="btn btn-dft" onclick="checkValue(document.article.title.value,'&action=checktitle','{$lang.article_exists}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>ºÏ≤‚÷ÿ∏¥</span></span>
+			</td>
+		</tr>
+	    <tr>
+		  <td>{$lang.tags}£∫</td>
+		  <td><input name="tags" class="textinput" type="text" value="{$article.tags}" size="55" tabindex="5" maxlength="50" /></td>
+		</tr>
+		<tr>
+		  <td>{$lang.article_cat}£∫</td>
+		  <td>
+			<select name="cid" id="cid">
+				<!--{foreach from=$category.0 item=group}-->
+				<option value="{$group.cid}"{$group.selected} class="big"{if $group.disabled==1} disabled="disabled"{/if}>{$group.name}</option>
+				<!--{assign var='sub' value=$group.cid}-->
+				<!--{foreach from=$category.$sub item=menu}-->
+				<option value="{$menu.cid}"{$menu.selected}{if $menu.disabled==1} disabled="disabled"{/if}>°°&raquo;{$menu.name}</option>
+				<!--{/foreach}-->
+				<!--{/foreach}-->
+			</select>°°
+			{$lang.article_source}£∫
+		    <input name="source" class="textinput" type="text" style="width:75px;" value="{$article.source}" />
+			  <select name="selectf" onchange="article.source.value=this.value">
+			   <option value="">{$lang.please_select}..</option>
+               <!--{foreach from=$article_source item=source}-->
+			   <option value="{$source.source_name}">{$source.source_name}</option>
+               <!--{/foreach}-->
+			</select>
+			</td>
+		</tr>
+		<tr>
+		  <td>{$lang.article_image}£∫</td>
+		  <td>
+			<input name="image" class="textinput" type="text" id="image" size="55" value="{$article.image}" tabindex="5" /> 	
+			<span class="btn btn-dft" onclick="OpenDialog('article.image')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.upload}</span></span> 
+		  </td>
+       </tr>
+		  <tr>
+			<td>{$lang.article_summary}£∫</td>
+			<td><textarea name="summary" tabindex="5" style="width:98%; height:80px;">{$article.summary}</textarea></td>
+		  </tr>
+		  <tr>
+			<td colspan="2">
+				{$lang.article_autopage}£∫<input name="autopage" type="checkbox" style="vertical-align:middle;" value="1"{if $article.autopage==1} checked="checked"{/if} />°°
+				{$lang.article_pagesize}£∫<input type="text" class="textinput" name="pagesize" value="{if $smarty.get.action=='addnew'}5000{else}{$article.pagesize}{/if}" style="width:60px;" />
+			</td>
+		  </tr>
+		  <tr>
+		  	<td colspan="2">{$editor}</td>
+		  </tr>
+		  <tr>
+			<td colspan="2">
+			   <input type="checkbox" name="allowcomment" value="1"{if $article.allowcomment==1} checked="checked"{/if} /> {$lang.allowcomment}°°
+			   <input type="checkbox" name="allowvote" value="1"{if $article.allowvote==1} checked="checked"{/if} /> {$lang.allowvote}°°
+			   <input type="checkbox" name="recommend" value="1"{if $article.recommend==1} checked="checked"{/if} /> {$lang.setrecommend}°°
+			   <input type="checkbox" name="audited" value="1"{if $article.audited==1} checked="checked"{/if} /> {$lang.passaudited}°°
+			</td>
+		  </tr>
+		</tr>
+    </table>
+    </form>
+	<div class="toolbar">
+		<span class="btn btn-dft" onclick="return check_article_submit(document.article)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{if $action=='addnew'}{$lang.save_article}{else}{$lang.save_edit}{/if}</span></span>
+		{if $smarty.get.action=='edit'}
+		<span class="btn btn-dft" onclick="DropOne({$article.id},'&cid={$article.cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+	</div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+var hassubmited = false;
+function check_article_submit(formobj){ 
+	if(hassubmited) return false;
+	if(!trimStr(formobj.title.value)){
+		showError(article_title_empty);
+		return false;
+	}  
+	if(!formobj.source.value){
+		showError(article_source_empty);
+		return false;
+	}
+	hassubmited = true;
+	formobj.submit();
+}
+
+window.document.onkeydown = function(e){
+	e=window.event||e;
+	if(e.ctrlKey&&e.keyCode==13){
+	   check_article_submit(document.article);
+	   return false;
+	}
+}
+</script>
+{/literal}

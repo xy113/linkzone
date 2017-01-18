@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{$curcategory.name}_{$cfg.sysname}</title>
+<meta name="keywords" content="{$curcategory.keywords},{$cfg.keywords}" />
+<meta name="description" content="{$curcategory.description},{$cfg.description}" />
+<link href="images/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+</head>
+
+<body>
+{include file='header.htm'}
+<div class="area">
+	<div class="left01" id="left">
+		<div class="banner"><script src="js/banner.js"></script></div>
+		<div class="yourpos"><a href="index.php">首页</a> >> <a href="jobs.php">加入连纵</a> >> {$curcategory.name}</div>
+		<div class="title-gray">{$curcategory.name}</div>
+		<!--{foreach from=$jobs.list item=job name=list}-->
+		<div class="jobsbox" onmouseover="this.style.background='#f2f2e2'" onmouseout="this.style.background='#fff'"{if $smarty.foreach.list.last} style="border-bottom:none;"{/if}>
+			<h3><a href="{$job.joburl}" title="{$job.jobtitle}">{$job.jobtitle}</a></h3>
+			<div class="jobs-item">招聘人数：{$job.numbers}　薪资：{$job.salary}　发布时间：{$job.dateline|date_format:'%Y-%m-%d'}</div>
+			<div class="jobs-content">能力要求：{$job.content}</div>
+		</div>
+		<!--{/foreach}-->
+		<div class="pagelink">{$pagelink}</div>
+	</div>
+	<div class="right01" id="right">
+		<div class="title-big">加入连纵</div>
+		<ul class="titlelist">
+			<!--{foreach from=$category.jobs.0 item=aa}-->
+			<li><a href="{$aa.caturl}"{if $smarty.get.cid==$aa.cid} class="selected"{/if}>{$aa.name}</a></li>
+			<!--{/foreach}-->
+		</ul>
+		<div class="blank"></div>
+		<div id="lhhz"><img src="images/pic-2.jpg" width="245" border="0" /></div>
+	</div>
+	<div class="clear"></div>
+</div>
+{include file='footer.htm'}

@@ -1,0 +1,57 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<div class="main-div">
+  <div class="toolbar">
+		<span class="btn btn-dft" onclick="Drop('source_id[]')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.delete}</b></span></span>
+		<span class="btn btn-dft" onclick="window.location.reload()" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+  <table border="0" cellspacing="0" cellpadding="0" class="list">
+    <tr>
+      <th width="25"><input type="checkbox" onclick="checkAll(this,'source_id[]')" /></th>
+      <th width="180" style="cursor:pointer;" title="{$lang.click_resort}" onclick="Sort()">{$lang.article_source_name}</th>
+	  <th width="40" style="text-align:center;">{$lang.sort}</th>
+      <th class="last">{$lang.article_source_url}</th>
+    </tr>
+    <!--{foreach from=$source_list item=source key=key}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td><input type="checkbox" name="source_id[]" value="{$source.source_id}" /></td>
+      <td><span title="{$lang.click_edit}" onclick="Edit(this,'edit_name',{$source.source_id})">{$source.source_name}</span></td>
+	  <td style="text-align:center;"><span title="{$lang.click_edit}" onclick="Edit(this,'edit_order',{$source.source_id})">{$source.source_order}</span></td>
+      <td><span title="{$lang.click_edit}" onclick="Edit(this,'edit_url',{$source.source_id})">{$source.source_url}</span></td>
+    </tr>
+    <!--{/foreach}-->
+    <tr>
+      <td colspan="4">
+	        {$lang.article_source_name}: <input name="source_name" id="source_name" type="text" class="textinput" style="width:100px;" />¡¡ 
+			{$lang.article_source_url}: <input type="text" name="source_url" id="source_url" value="http://"  class="textinput" style="width:280px;" />¡¡        
+			{$lang.sort}: <input name="source_order" id="source_order" type="text"  class="textinput" style="width:30px;" />
+			<input type="button" name="btn_s" id="btn_s" class="button" value="{$lang.add}" onclick="Add()" />
+	   </td>
+    </tr>
+  </table>
+  <div class="toolbar">
+		<span class="btn btn-dft" onclick="Drop('source_id[]')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.delete}</b></span></span>
+		<span class="btn btn-dft" onclick="window.location.reload()" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+function Add(){
+   var source_name  = $('source_name').value;
+   var source_url   = $('source_url').value;
+   var source_order = $('source_order').value;
+   if(!trimStr(source_name)){
+	   showError(source_name_empty);
+       return false;
+   }
+   var x = new Ajax();
+   var postStr = "source_name="+source_name+"&source_url="+source_url+"&source_order="+source_order;
+   x.post(url+'&action=save',postStr,function(s){
+       if(s){
+	       $('bodyFrame').innerHTML = s;
+	   }
+   })
+   $('btn_s').disabled=true;
+}
+</script>
+{/literal}

@@ -1,0 +1,34 @@
+<table border="0" cellspacing="0" cellpadding="0" class="form-table">
+<tr>
+  <td width="100">{$lang.iscache}£º</td>
+  <td>
+	<input type="radio" name="iscache"  value="1"{if $cfg.iscache==1} checked="checked"{/if} /> {$lang.yes}¡¡
+	<input type="radio" name="iscache"  value="0"{if $cfg.iscache==0} checked="checked"{/if} /> {$lang.no}       
+   </td>
+</tr>
+<tr>
+  <td>{$lang.cachetime}£º</td>
+  <td><input type="text" name="cachetime" value="{$cfg.cachetime}" class="textinput" /></td>
+</tr>
+<tr>
+  <td>{$lang.cachedir}£º</td>
+  <td><input type="text" name="cachedir" value="{$cfg.cachedir}" class="textinput" /></td>
+</tr>
+<tr>
+  <td>{$lang.isstatic}£º</td>
+  <td><input type="radio" name="isstatic" value="1"{if $cfg.isstatic==1} checked="checked"{/if} /> {$lang.yes}¡¡
+      <input type="radio" name="isstatic" value="0"{if $cfg.isstatic==0} checked="checked"{/if} /> {$lang.no}
+  </td>
+</tr>
+<!--<tr>
+  <td>{$lang.statictype}£º</td>
+  <td>
+  <input type="radio" name="statictype" value="0"{if $cfg.statictype==0} checked="checked"{/if} /> {$lang.rewritestatic}   
+  <input type="radio" name="statictype" value="1"{if $cfg.statictype==1} checked="checked"{/if} /> {$lang.basestatic}
+  </td>
+</tr>
+<tr>
+  <td>{$lang.pagedir}£º</td>
+  <td><input type="text" name="pagedir" value="{$cfg.pagedir}" class="textinput" /></td>
+</tr>
+--></table>

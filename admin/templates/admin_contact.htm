@@ -1,0 +1,55 @@
+{include file='page_header.htm'}
+<div class="main-div">
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="document.formcontact.submit()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save_edit}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<form name="formcontact" method="post" action="?action=saveedit" onsubmit="this.b1.disabled=true;return true;" style="margin:10px 0px;">
+  <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+    <tr>
+      <td width="70">{$lang.contact_man}£º</td>
+      <td><input name="con_man" type="text" value="{$contact.con_man}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_tel}£º</td>
+      <td><input name="con_tel" type="text" value="{$contact.con_tel}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_fax}£º</td>
+      <td><input name="con_fax" type="text" value="{$contact.con_fax}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_mobile}£º</td>
+      <td><input name="con_mobile" type="text" value="{$contact.con_mobile}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_oicq}£º</td>
+      <td><input name="con_oicq" type="text" value="{$contact.con_oicq}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_email}£º</td>
+      <td><input name="con_email" type="text" value="{$contact.con_email}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_msn}£º</td>
+      <td><input name="con_msn" type="text" value="{$contact.con_msn}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_ww}£º</td>
+      <td><input name="con_ww" type="text" value="{$contact.con_ww}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_postcode}£º</td>
+      <td><input name="con_postcode" type="text" value="{$contact.con_postcode}" class="textinput" style="width:300px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.contact_address}£º</td>
+      <td><input name="con_address" type="text" value="{$contact.con_address}" class="textinput" style="width:300px;" /></td>
+    </tr>
+  </table>
+</form>
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="document.formcontact.submit()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save_edit}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>

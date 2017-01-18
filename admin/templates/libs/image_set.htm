@@ -1,0 +1,92 @@
+<table border="0" cellspacing="0" cellpadding="0" class="form-table">
+  <tr>
+    <td width="100">{$lang.img_type}£º</td>
+    <td><input name="img_type" type="text" value="{$cfg.img_type}" class="textinput" style="width:380px;" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.img_thumbnails}£º</td>
+    <td>
+       <input type="radio" name="img_thumbnails" value="1"{if $cfg.img_thumbnails==1} checked="checked"{/if} /> {$lang.yes}
+       <input name="img_thumbnails" type="radio"  value="0"{if $cfg.img_thumbnails==0} checked="checked"{/if} /> {$lang.no}    
+    </td>
+  </tr>
+  <tr>
+    <td>{$lang.img_width}£º</td>
+    <td><input name="img_width" type="text" value="{$cfg.img_width}" class="textinput" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.img_height}£º</td>
+    <td><input name="img_height" type="text" value="{$cfg.img_height}" class="textinput" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.iswater}£º</td>
+    <td>
+       <input type="radio" name="watermark" value="1"{if $cfg.watermark==1} checked="checked"{/if} /> {$lang.yes}
+       <input name="watermark" type="radio"  value="0"{if $cfg.watermark==0} checked="checked"{/if} /> {$lang.no}    
+    </td>
+  </tr>
+  <tr>
+    <td>{$lang.watertype}£º</td>
+    <td>
+        <input name="watertype" type="radio" value="0"{if $cfg.watertype==0} checked="checked"{/if} /> {$lang.imgwater}
+        <input type="radio" name="watertype"  value="1"{if $cfg.watertype==1} checked="checked"{/if}  /> {$lang.txtwater}    
+	</td>
+  </tr>
+  <tr>
+    <td>{$lang.watertext}£º</td>
+    <td><input name="watertext" type="text" value="{$cfg.watertext}" class="textinput" style="width:380px;" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.waterfont}£º</td>
+    <td><input name="waterfont" type="text" value="{$cfg.waterfont}" class="textinput" style="width:380px;" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.watersize}£º</td>
+    <td><input name="watersize" type="text" value="{$cfg.watersize}" class="textinput" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.watercolor}£º</td>
+    <td><input name="watercolor" type="text" value="{$cfg.watercolor}" class="textinput" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.waterimg}£º</td>
+    <td><input name="waterimg" type="text" value="{$cfg.waterimg}" class="textinput" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.wateralpha}£º</td>
+    <td><input name="wateralpha" type="text" value="{$cfg.wateralpha}" class="textinput" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.waterpos}£º</td>
+    <td>
+	     	<input type="radio" name="waterpos" value="0"{if $cfg.waterpos==0} checked="checked"{/if} />
+	     	#0  {$lang.waterpos_0}<br />
+	     	<input type="radio" name="waterpos" value="1"{if $cfg.waterpos==1} checked="checked"{/if} />
+	     	#1
+	     	<input type="radio" name="waterpos" value="2"{if $cfg.waterpos==2} checked="checked"{/if} />
+	     	#2
+	     	<input type="radio" name="waterpos" value="3"{if $cfg.waterpos==3} checked="checked"{/if} />
+	     	#3<br />
+	     	<input type="radio" name="waterpos" value="4"{if $cfg.waterpos==4} checked="checked"{/if} />
+	     	#4
+	     	<input type="radio" name="waterpos" value="5"{if $cfg.waterpos==5} checked="checked"{/if} />
+	     	#5
+	     	<input type="radio" name="waterpos" value="6"{if $cfg.waterpos==6} checked="checked"{/if} />
+	     	#6<br />
+	     	<input type="radio" name="waterpos" value="7"{if $cfg.waterpos==7} checked="checked"{/if} />
+	     	#7
+	     	<input type="radio" name="waterpos" value="8"{if $cfg.waterpos==8} checked="checked"{/if} />
+	     	#8
+	     	<input type="radio" name="waterpos" value="9"{if $cfg.waterpos==9} checked="checked"{/if} />
+	     	#9
+	</td>
+  </tr>
+  <tr>
+    <td>{$lang.waterxoffset}£º</td>
+    <td><input name="waterxoffset" type="text" id="waterxoffset" size="10" value="{$cfg.waterxoffset}" class="textinput" /></td>
+  </tr>
+  <tr>
+    <td>{$lang.wateryoffset}£º</td>
+    <td><input name="wateryoffset" type="text" id="wateryoffset" size="10" value="{$cfg.wateryoffset}" class="textinput" /></td>
+  </tr>
+</table>

@@ -1,0 +1,52 @@
+<div class="main-div">
+  <div class="toolbar">
+        <span class="btn btn-dft" onclick="SaveCategory(document.category)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload()" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+ <form name="category" method="post">
+  <input type="hidden" name="cid" value="{$category.cid}" />
+  <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+    <tr>
+      <td width="100">{$lang.cat_name}：</td>
+      <td><input name="name" type="text" maxlength="10" value="{$category.name}" class="textinput" style="width:200px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.cat_up}：</td>
+      <td>
+	  <select name="cup" id="cup">
+        <option value="0">{$lang.cat_to_top}</option>
+		<!--{foreach from=$categories.0 item=group}-->
+		<option value="{$group.cid}"{$group.selected}>{$group.name}</option>
+		<!--{/foreach}-->
+      </select>	  
+	 </td>
+    </tr>
+    <tr>
+      <td>{$lang.add_to_nav}：</td>
+      <td>
+	      <input name="add_to_nav" type="radio" value="1" /> {$lang.yes}
+		  <input name="add_to_nav" type="radio" value="0" checked="checked" /> {$lang.no}</td>
+    </tr>
+	<tr>
+      <td>允许发布内容：</td>
+      <td>
+	      <input name="disabled" type="radio" value="0" checked="checked" /> {$lang.yes}
+		  <input name="disabled" type="radio" value="1" /> {$lang.no}</td>
+    </tr>
+    <tr>
+      <td>{$lang.keywords}：</td>
+      <td><input name="keywords" type="text" value="{$category.keywords}" class="textinput" style="width:400px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.remark}：</td>
+      <td><textarea name="description" class="textinput" style="width:400px; height:50px;" >{$category.description}</textarea></td>
+    </tr>
+  </table>
+</form>
+  <div class="toolbar">
+        <span class="btn btn-dft" onclick="SaveCategory(document.category)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload()" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+</div>

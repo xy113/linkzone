@@ -1,0 +1,101 @@
+<script type="text/javascript" src="javascript/Calendar4.js"></script>
+<div class="main-div">
+	<div class="toolbar">
+		<span class="btn btn-dft" onclick="return check_product_submit(document.product)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{if $action=='add'}{$lang.save}{else}{$lang.save_edit}{/if}</span></span>
+		{if $smarty.get.action=='edit'}
+		<span class="btn btn-dft" onclick="DropOne({$product.id},'&cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+		<span class="ctrlenter">　{$lang.ctrlenter}</span>
+	</div>
+	<form action="{$smarty.server.PHP_SELF}?action=save" name="product" method="post">
+	  <input name="id" type="hidden" value="{$product.id}" />
+	  <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+		<tr>
+		  <td width="70">{$lang.product_name}：</td>
+		  <td>
+		    <input name="proname" type="text" value="{$product.proname}" class="textinput" style="width:400px;" />
+		    <span class="btn btn-dft" onclick="checkValue(document.product.proname.value,'&action=checkname','{$lang.product_exists}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.checkrepeat}</span></span> 
+		  </td>
+		</tr>
+		<tr>
+		  <td>{$lang.product_cat}：</td>
+		  <td>
+		  <select name="cid">
+		  <!--{foreach from=$category.0 item=group}-->
+		  <option value="{$group.cid}"{$group.selected} class="big"{if $group.disabled==1} disabled="disabled"{/if>{$group.name}</option>
+		  <!--{assign var='sub' value=$group.cid}-->
+		  <!--{foreach from=$category.$sub item=menu}-->
+		  <option value="{$menu.cid}"{$menu.selected}{if $menu.disabled==1} disabled="disabled"{/if>　&raquo;{$menu.name}</option>
+		  <!--{/foreach}-->
+		  <!--{/foreach}-->
+		  </select>　 
+		  上市日期：
+		   <input name="listingdate" type="text" value="{$product.listingdate}" class="textinput" onclick="MyCalendar.SetDate(this)" />    
+		  </td>
+		</tr>
+		<tr>
+		  <td>{$lang.product_size}：</td>
+		  <td>
+		  <input name="size" type="text" value="{$product.size}" class="textinput" /> 　       
+		  {$lang.product_price}：
+		  <input name="price" type="text" value="{$product.price}" class="textinput" />     
+		 </td>
+		</tr>
+		<tr>
+		  <td>{$lang.product_image}：</td>
+		  <td>
+		  <input name="image" type="text" value="{$product.image}" class="textinput" style="width:400px;" />
+		  <span class="btn btn-dft" onclick="OpenDialog('product.image')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.upload}</span></span> 
+		  </td>
+		</tr>
+		<tr>
+		  <td>{$lang.tags}：</td>
+		  <td><input name="tags" type="text" value="{$product.tags}" class="textinput" style="width:400px;" /></td>
+		</tr>
+		<tr>
+			<td colspan="2">{$editor}</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+			   <input type="checkbox" name="allowcomment" value="1"{if $product.allowcomment==1} checked="checked"{/if} /> {$lang.allowcomment}　
+			   <input type="checkbox" name="allowvote" value="1"{if $product.allowvote==1} checked="checked"{/if} /> {$lang.allowvote}　
+			   <input type="checkbox" name="recommend" value="1"{if $product.recommend==1} checked="checked"{/if} /> {$lang.setrecommend}　
+			   <input type="checkbox" name="audited" value="1"{if $product.audited==1} checked="checked"{/if} /> {$lang.passaudited}　
+			</td>
+		</tr>
+	  </table>
+	</form>
+	<div class="toolbar">
+		<span class="btn btn-dft" onclick="return check_product_submit(document.product)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{if $action=='add'}{$lang.save}{else}{$lang.save_edit}{/if}</span></span>
+		{if $smarty.get.action=='edit'}
+		<span class="btn btn-dft" onclick="DropOne({$product.id},'&cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+	</div>
+</div>
+{literal}
+<script type="text/javascript">
+var hassubmited = false;
+function check_product_submit(formobj){
+    if(hassubmited) return false;
+	if(!trimStr(formobj.proname.value)){
+		 showError(product_name_empty);
+		 return false;
+	}
+	hassubmited = true;
+    formobj.submit();
+	return true;
+}
+
+document.onkeydown = function(e){
+	e=window.event||e;
+	if(e.ctrlKey&&e.keyCode==13){
+	   check_product_submit(document.product);
+	   return false;
+	}
+}
+</script>
+{/literal}

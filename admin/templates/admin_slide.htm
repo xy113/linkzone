@@ -1,0 +1,105 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='add'||$action=='edit'}-->
+<div class="main-div">
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="check_flash_submit(document.flash)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('admin_slide.php')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<form action="{$smarty.server.PHP_SELF}?action=save" method="post" name="flash">
+  <input type="hidden" name="flash_id" value="{$flash.flash_id}" />
+  <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+  <tr><td colspan="2" height="5"></td></tr>
+    <tr>
+      <td width="80">{$lang.flash_title}£º</td>
+      <td><input name="flash_title" type="text" value="{$flash.flash_title}" class="textinput" style="width:400px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.flash_link}£º</td>
+      <td><input name="flash_link" type="text" value="{$flash.flash_link}" class="textinput" style="width:400px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.flash_pic}£º</td>
+      <td>
+         <input name="flash_pic" type="text" value="{$flash.flash_pic}" class="textinput" style="width:400px;" />
+		 <span class="btn btn-dft" onclick="OpenDialog('flash.flash_pic')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.upload}</span></span>
+      </td>
+    </tr>
+    <tr>
+      <td>{$lang.flash_desc}£º</td>
+      <td><textarea name="flash_desc" style="width:560px; height:90px;">{$flash.flash_desc}</textarea></td>
+    </tr>
+	<tr><td colspan="2" height="5"></td></tr>
+  </table>
+</form>
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="check_flash_submit(document.flash)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('admin_slide.php')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+function check_flash_submit(obj){
+   if(!trimStr(obj.flash_title.value)){
+	  showError(flash_title_empty);
+	  return false;
+   }
+   
+   if(!obj.flash_link.value){
+	  showError(flash_link_empty)
+	  return false;
+   }
+   obj.submit();
+   return true;
+}
+</script>
+{/literal}
+<!--{else}-->
+<div class="main-div">
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('flash_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=add')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.flash_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<form name="slide" method="post">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+  <tr>
+    <th width="25"><input type="checkbox" onclick="checkAll(this,'flash_id[]');"/></td>
+    <th width="280">{$lang.flash_title}</td>
+	<th>{$lang.flash_desc}</td>
+    <th width="120" class="last">{$lang.pubdate}</td>
+  </tr>
+  <!--{foreach from=$flashes item=flash}-->
+  <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+    <td><input type="checkbox" name="flash_id[]" value="{$flash.flash_id}" onclick="checkThis(this)" /></td>
+    <td onmouseover="showMenuBox({$flash.flash_id})" onmouseout="hideMenuBox({$flash.flash_id})"><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_title',{$flash.flash_id})">{$flash.flash_title}</span>
+	    <span class="c_box" id="box_{$flash.flash_id}">
+		    <b class="icon-edit" title="{$lang.edit}" onclick="window.location='{$smarty.server.PHP_SELF}?action=edit&flash_id={$flash.flash_id}'"></b>
+			<b class="icon-view" title="{$lang.view}" onclick="window.open('{$flash.flash_link}')"></b>
+			<b class="icon-drop" title="{$lang.drop}" onclick="DropOne({$flash.flash_id},'&page={$page}')"></b>
+		</span>
+	</td>
+	<td><span title="{$lang.click_edit}" onclick="Edit(this,'edit_desc',{$flash.flash_id})">{$flash.flash_desc}</span></td>
+    <td><span class="mdate">{$flash.flash_time|date_format:'%Y-%m-%d %H:%M:%S'}</span></td>
+  </tr>
+  <!--{/foreach}-->
+  <tr>
+      <td colspan="4">{$lang.select}£º
+			<a href="javascript:;" onclick="selectAll('flash_id[]')">{$lang.selectall}</a> - 
+			<a href="javascript:;" onclick="cancelAll('flash_id[]')">{$lang.noselect}</a> - 
+			<a href="javascript:;" onclick="reverseAll('flash_id[]')">{$lang.reverseselect}</a>
+	  </td>
+  </tr>
+</table>
+</form>
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('flash_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=add')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.flash_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<!--{/if}-->

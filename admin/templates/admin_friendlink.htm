@@ -1,0 +1,104 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='add'||$action=='edit'}-->
+<div class="main-div">
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="check_link_submit(document.link)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<form name="link" method="post" action="{$smarty.server.PHP_SELF}?action=save">
+  <input type="hidden" name="link_id" value="{$flink.link_id}" />
+  <table border="0" cellpadding="0" cellspacing="0" align="center" class="form-table">
+	<tr>
+	   <td colspan="2" height="10"></td>
+	</tr>
+    <tr>
+      <td width="70">{$lang.link_name}£º</td>
+      <td><input name="link_name" type="text" class="textinput" value="{$flink.link_name}" style="width:400px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.link_url}£º</td>
+      <td><input name="link_url" type="text" class="textinput" value="{$flink.link_url}" style="width:400px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.link_logo}£º</td>
+      <td>
+	      <input name="link_logo" type="text"  class="textinput" value="{$flink.link_logo}" style="width:400px;" />
+		  <span class="btn btn-dft" onclick="OpenDialog('link.link_logo')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.upload}</span></span>
+	  </td>
+    </tr>
+    <tr>
+      <td>{$lang.link_info}£º</td>
+      <td><textarea name="link_info" style="width:480px; height:50px;">{$flink.link_info}</textarea></td>
+    </tr>
+	<tr>
+	   <td colspan="2" height="10"></td>
+	</tr>
+  </table>
+</form>
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="check_link_submit(document.link)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+function check_link_submit(obj){
+	if(!trimStr(obj.link_name.value)){
+		showError(link_name_empty);
+		return false;
+	}else if(!obj.link_url.value){
+		showError(link_url_empty);
+		return false;
+	}else{
+	    obj.submit();
+		return true;
+	}
+}
+</script>
+{/literal}
+<!--{else}-->
+<div class="main-div">
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('link_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('admin_friendlink.php?action=add')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.link_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<table border="0" align="center" cellpadding="0" cellspacing="0" class="list">
+  <tr>
+    <th width="25"><input type="checkbox" onclick="checkAll(this,'link_id[]')" /></td>
+    <th width="150" style="cursor:pointer;" title="{$lang.click_resort}" onclick="Sort()">{$lang.link_name}</td>
+    <th width="200">{$lang.link_url}</td>
+    <th width="30" style="text-align:center;">{$lang.enabled}</td>
+    <th width="30" style="text-align:center;cursor:pointer;" title="{$lang.click_resort}" onclick="Sort()">{$lang.sort}</td>
+    <th class="last">{$lang.link_info}</td>
+  </tr>
+  <!--{foreach from=$friendlinks item=flink}-->
+  <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+    <td><input type="checkbox" name="link_id[]" value="{$flink.link_id}" onclick="checkThis(this)" /></td>
+    <td><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_name',{$flink.link_id});">{$flink.link_name}</span></td>
+    <td><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_url',{$flink.link_id});">{$flink.link_url}</span></td>
+    <td style="text-align:center;"><img src="{if $flink.link_show==1}images/yes.gif{else}images/no.gif{/if}" title="{$lang.click_switch}" onclick="javascript:toggle(this,'edit_show',{$flink.link_id});" /></td>
+    <td style="text-align:center;"><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_order',{$flink.link_id});">{$flink.link_order}</span></td>
+    <td><span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_info',{$flink.link_id});">{$flink.link_info}</span></td>
+  </tr>
+  <!--{/foreach}-->
+  <tr>
+      <td colspan="6">{$lang.select}£º
+		<a href="javascript:;" onclick="selectAll('link_id[]')">{$lang.selectall}</a> - 
+		<a href="javascript:;" onclick="cancelAll('link_id[]')">{$lang.noselect}</a> - 
+		<a href="javascript:;" onclick="reverseAll('link_id[]')">{$lang.reverseselect}</a>
+	 </td>
+  </tr>
+</table>
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('link_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('admin_friendlink.php?action=add')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.link_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<!--{/if}-->

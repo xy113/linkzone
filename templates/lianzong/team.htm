@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{$teams.0.name}_{$cfg.sysname}</title>
+<meta name="keywords" content="{$cfg.keywords}" />
+<meta name="description" content="{$cfg.description}" />
+<link href="images/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+</head>
+
+<body>
+{include file='header.htm'}
+<div class="area">
+	<div class="left01" id="left">
+		<div class="banner"><script src="js/banner.js"></script></div>
+		<div class="yourpos"><a href="index.php">首页</a> >> 连纵团队 >> {$teams.0.name}</div>
+		<div class="title-gray">{$teams.0.name}</div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="listtable">
+          <tr class="gray">
+            <td width="140">姓名</td>
+            <td width="160">联系电话</td>
+            <td>电子邮件</td>
+          </tr>
+		  <!--{foreach from=$members.list item=mm key=key}-->
+          <tr{if ($key+1)%2==0} class="gray"{/if}>
+            <td><a href="team_member.php?mid={$mm.mid}">{$mm.name}</a></td>
+            <td>{$mm.tel}</td>
+            <td>{$mm.email}</td>
+          </tr>
+		  <!--{/foreach}-->
+        </table>
+		<div class="pagelink">{$pagelink}</div>
+	</div>
+	<div class="right01" id="right">
+		<div class="title-big">连纵团队</div>
+		<ul class="titlelist">
+			<!--{foreach from=$teams item=aa}-->
+			<li><a href="team.php?tid={$aa.tid}"{if $tid==$aa.tid} class="selected"{/if}>{$aa.name}</a></li>
+			<!--{/foreach}-->
+		</ul>
+		<div class="blank"></div>
+		<div id="lhhz"><img src="images/pic-2.jpg" width="245" border="0" /></div>
+	</div>
+	<div class="clear"></div>
+</div>
+{include file='footer.htm'}

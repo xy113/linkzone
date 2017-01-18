@@ -1,0 +1,168 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='addnew'||$action=='edit'}-->
+{include file='libs/video_info.htm'}
+<!--{else}-->
+<div class="main-div">
+    <div class="pos-div">
+	     <h2>{$lang.cp_home} &raquo; {$lang.video_manage}　Total Records: {$records}</h2>
+		 <div class="searchbox">
+		      <input type="text" name="q" id="q" value="{$smarty.get.q}" class="textinput" style="width:145px;" />
+			  <span class="btn btn-dft" onclick="ListTable('&q='+document.getElementById('q').value)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.search}</span></span>
+		 </div>
+	</div>
+	<div class="toolbar">
+		<span class="pagebox">{$pagelink}</span>
+		{if $smarty.get.status==-1}
+		<span class="btn btn-dft" onclick="Drop('id[]','&page={$page}&status=-1')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.delete}</b></span></span>
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=restore&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.video_restore}</span></span>
+		{else}
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew&cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.video_add}</span></span>
+		<span id="btnbox">
+		   <span class="btnL" onclick="ShowSubMenu(this);" onmouseup="this.className='btnL-hover'" onmousedown="this.className='btnL-active'" onmouseout="this.className='btnL'" onmouseover="this.className='btnL-hover'" tabindex="0">{$lang.markas}
+			<ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="toggleTable('id[]','&action=audited&page={$page}&{$curl}')">{$lang.audited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unaudited&page={$page}&{$curl}')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=recommend&page={$page}&{$curl}')">{$lang.recommend}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unrecommend&page={$page}&{$curl}')">{$lang.unrecommend}</a></li>
+			</ul>
+	       </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.moveto}
+			<ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')">{$lang.trash}</a></li>
+				 <!--{foreach from=$category.0 item=group}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+				 <!--{assign var='sub' value=$group.cid}-->
+				 <!--{foreach from=$category.$sub item=menu}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+				 <!--{/foreach}-->
+				 <!--{/foreach}-->
+			</ul>
+		   </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.view}
+			<ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="ListTable('&t=unaudited')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=all')">{$lang.video_all}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=recommend')">{$lang.video_commend}</a></li>
+				 <li onmouseover="ShowSubMenu(this)" onmouseout="HideSubMenu(this)"><a href="javascript:;">{$lang.video_cat}<b class="arr2"></b></a>
+				     <ul>
+						 <!--{foreach from=$category.0 item=group}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+						 <!--{assign var='sub' value=$group.cid}-->
+						 <!--{foreach from=$category.$sub item=menu}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+						 <!--{/foreach}-->
+						 <!--{/foreach}-->
+					 </ul>
+				 </li>
+			</ul>
+		   </span><b class="arr"></b>
+		   	<span class="btnR" onclick="ShowSubMenu(this)" onmouseover="this.className='btnR-hover'" onmouseup="this.className='btnR-hover'" onmousedown="this.className='btnR-active'" onmouseout="this.className='btnR'" tabindex="0">
+		     <span>{$lang.more}
+			    <ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				    <li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=ASC')">{$lang.ascorder}<b class="arr-asc"></b></a></li>
+					<li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=DESC')">{$lang.descorder}<b class="arr-desc"></b></a></li>
+				</ul>
+			 </span><b class="arr"></b>
+	       </span>
+	    </span>
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+	<form  name="videos" method="post">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+	  <tr>
+		<th width="20"><input class="list" type="checkbox" onclick="checkAll(this,'id[]')" /></th>
+		<th width="15" style="text-align:center;"><img src="images/icon_view.gif" title="{$lang.view}" border="0" /></th>
+		<th style="cursor:pointer;" onclick="Sort('id','&status={$smarty.get.status}')" title="{$lang.click_resort}">{$lang.video_title}</th>
+		<th width="30" style="text-align:center;">{$lang.comment}</th>
+		<th width="30" style="text-align:center;">{$lang.audited}</th>
+		<th width="30" style="text-align:center;">{$lang.recommend}</th>
+		<th width="35" style="text-align:center; cursor:pointer;" onclick="Sort('views','&status={$smarty.get.status}')" title="{$lang.click_resort}">{$lang.clicks}</th>
+		<th width="120" class="last" style="cursor:pointer;" onclick="Sort('time','&status={$smarty.get.status}')" title="{$lang.click_resort}">{$lang.pubdate}</th>
+	  </tr>
+	  <!--{foreach from=$videos item=vod}-->
+	  <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+		<td><input type="checkbox" name="id[]" value="{$vod.id}" onclick="checkThis(this)" /></td>
+		<td style="text-align:center;"><a href="{$vod.vodurl}" target="_blank"><img src="images/icon_view.gif" title="{$lang.view}" border="0" /></a></td>
+		<td><a href="{$smarty.server.PHP_SELF}?action=edit&id={$vod.id}">{$vod.title}</a></td>
+		<td style="text-align:center;">{$vod.comments}</td>
+		<td style="text-align:center;"><img onclick="toggle(this,'toggle_audited',{$vod.id})" title="{$lang.click_switch}" src="{if $vod.audited==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		<td style="text-align:center;"><img onclick="toggle(this,'toggle_recommend',{$vod.id})" title="{$lang.click_switch}" src="{if $vod.recommend==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		<td style="text-align:center;">{$vod.views}</td>
+		<td><span class="mdate">{$vod.dateline|date_format:'%Y-%m-%d %H:%M:%S'}</span></td>
+	  </tr>
+	  <!--{/foreach}-->
+		<tr>
+			<td colspan="8">{$lang.select}��
+			<a href="javascript:;" onclick="selectAll('id[]')">{$lang.selectall}</a> - 
+			<a href="javascript:;" onclick="cancelAll('id[]')">{$lang.noselect}</a> - 
+			<a href="javascript:;" onclick="reverseAll('id[]')">{$lang.reverseselect}</a> - 
+			<a href="javascript:;" onclick="ListTable('&t=recommend')">{$lang.recommend}</a> - 
+			<a href="javascript:;" onclick="ListTable('&t=unaudited')">{$lang.unaudited}</a>
+			</td>
+		</tr>
+	</table>
+	</form>
+	<div class="toolbar">
+		<span class="pagebox">{$pagelink}</span>
+		{if $smarty.get.status==-1}
+		<span class="btn btn-dft" onclick="Drop('id[]','&page={$page}&status=-1')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.delete}</b></span></span>
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=restore&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.video_restore}</span></span>
+		{else}
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew&cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.video_add}</span></span>
+		<span id="btnbox">
+		   <span class="btnL" onclick="ShowSubMenu(this);" onmouseup="this.className='btnL-hover'" onmousedown="this.className='btnL-active'" onmouseout="this.className='btnL'" onmouseover="this.className='btnL-hover'" tabindex="0">{$lang.markas}
+			<ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="toggleTable('id[]','&action=audited&page={$page}&{$curl}')">{$lang.audited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unaudited&page={$page}&{$curl}')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=recommend&page={$page}&{$curl}')">{$lang.recommend}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unrecommend&page={$page}&{$curl}')">{$lang.unrecommend}</a></li>
+			</ul>
+	       </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.moveto}
+			<ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')">{$lang.trash}</a></li>
+				 <!--{foreach from=$category.0 item=group}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+				 <!--{assign var='sub' value=$group.cid}-->
+				 <!--{foreach from=$category.$sub item=menu}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+				 <!--{/foreach}-->
+				 <!--{/foreach}-->
+			</ul>
+		   </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.view}
+			<ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="ListTable('&t=unaudited')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=all')">{$lang.video_all}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=recommend')">{$lang.video_commend}</a></li>
+				 <li onmouseover="ShowSubMenu(this)" onmouseout="HideSubMenu(this)"><a href="javascript:;">{$lang.video_cat}<b class="arr2"></b></a>
+				     <ul>
+						 <!--{foreach from=$category.0 item=group}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+						 <!--{assign var='sub' value=$group.cid}-->
+						 <!--{foreach from=$category.$sub item=menu}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+						 <!--{/foreach}-->
+						 <!--{/foreach}-->
+					 </ul>
+				 </li>
+			</ul>
+		   </span><b class="arr"></b>
+		   	<span class="btnR" onclick="ShowSubMenu(this)" onmouseover="this.className='btnR-hover'" onmouseup="this.className='btnR-hover'" onmousedown="this.className='btnR-active'" onmouseout="this.className='btnR'" tabindex="0">
+		     <span>{$lang.more}
+			    <ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				    <li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=ASC')">{$lang.ascorder}<b class="arr-asc"></b></a></li>
+					<li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=DESC')">{$lang.descorder}<b class="arr-desc"></b></a></li>
+				</ul>
+			 </span><b class="arr"></b>
+	       </span>
+	    </span>
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+</div>
+<!--{/if}-->

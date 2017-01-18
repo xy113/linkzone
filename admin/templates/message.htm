@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{$page_title} {$lang.cp_home}</title>
+<link rel="stylesheet" type="text/css" href="images/style.css">
+<script src="javascript/common.js" type="text/javascript"></script>
+<script src="lang.zh_cn.js" type="text/javascript"></script>
+{literal}
+<style type="text/css">
+.messagebox {
+    padding:20px 20px; 
+	width:60%; 
+	margin:50px auto; 
+	clear:both; 
+	border:1px #CCCCCC solid;
+}
+.messagediv {
+    clear:both; 
+	height:30px; 
+	line-height:30px;
+}
+</style>
+{/literal}
+</head>
+<body>
+<div class="main-div">
+<div class="messagebox">
+<!--{if $msg_type==0}-->
+<img src="images/information.gif" border="0" align="absmiddle" />
+<!--{else}-->
+<img src="images/warning.gif" border="0" align="absmiddle" />
+<!--{/if}-->
+<b style="font-size:14px;">{$msg_detail}</b>
+<div class="blank"></div>
+{if $auto_redirect}
+<div class="messagediv">{$lang.auto_redirect}</div>
+{/if}
+<div class="messagediv"><img src="images/arrow.gif" border="0" align="absmiddle" /> <a href="{$links.href}">{$links.text}</a></div>
+</div>
+</div>
+<!--{if $auto_redirect}-->
+<script type="text/javascript">
+var num=3;
+var forwardurl='{$forwardurl}';
+{literal}
+function goback(){
+   num--;
+   if(num<1){
+      if(forwardurl){
+         window.location.href=forwardurl;
+	  }else{
+	     history.go(-1);
+	  }
+   }else{
+      document.getElementById('timer').innerHTML=num;
+	  window.clearInterval();
+   }
+}
+{/literal}
+setInterval('goback()',1000);
+</script>
+<!--{/if}-->
+</BODY>
+</HTML>

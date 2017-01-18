@@ -1,0 +1,136 @@
+{include file='page_header.htm'}
+<div class="pos-div2">{$lang.cp_home} &raquo; {$lang.data_statistics}</div>
+<div class="blank"></div>
+<div class="main-div">
+    <table border="0" align="center" cellpadding="0" cellspacing="0" class="tongji">
+	  <tr><th colspan="4"><strong>{$lang.product_statistics}</strong></th></tr>
+      <tr>
+        <td width="10%">{$lang.product_count}£º</td>
+        <td width="40%"><b>{$counts.product_all}</b></td>
+        <td width="10%">{$lang.unaudited}£º</td>
+        <td width="40%"><b>{$counts.product_unaudited}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.product_best_count}£º</td>
+        <td><b>{$counts.product_commend}</b></td>
+        <td>{$lang.today_add}£º</td>
+        <td><b>{$counts.product_today}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.trash}£º</td>
+        <td><b>{$counts.product_trash}</b></td>
+      </tr>
+    </table>
+</div>
+<div class="main-div">
+    <table border="0" align="center" cellpadding="0" cellspacing="0"  class="tongji">
+	<tr><th colspan="4"><strong>{$lang.article_statistics}</strong></th></tr>
+      <tr>
+        <td width="10%">{$lang.article_count}£º</td>
+        <td width="40%"><b>{$counts.article_all}</b></td>
+        <td width="10%">{$lang.unaudited}£º</td>
+        <td width="40%"><b>{$counts.article_unaudited}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.article_best_count}£º</td>
+        <td><b>{$counts.article_commend}</b></td>
+        <td>{$lang.today_add}£º</td>
+        <td><b>{$counts.article_today}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.trash}£º</td>
+        <td><b>{$counts.article_trash}</b></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+</div>
+<div class="main-div">
+    <table border="0" align="center" cellpadding="0" cellspacing="0" class="tongji">
+	  <tr><th colspan="4"><strong>{$lang.image_statistics}</strong></th></tr>
+      <tr>
+        <td width="10%">{$lang.image_count}£º</td>
+        <td width="40%"><b>{$counts.image_all}</b></td>
+        <td width="10%">{$lang.unaudited}£º</td>
+        <td width="40%"><b>{$counts.image_unaudited}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.image_best_count}£º</td>
+        <td><b>{$counts.image_commend}</b></td>
+        <td>{$lang.today_add}£º</td>
+        <td><b>{$counts.image_today}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.trash}£º</td>
+        <td><b>{$counts.image_trash}</b></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+</div>
+<div class="main-div">
+    <table border="0" align="center" cellpadding="0" cellspacing="0" class="tongji">
+	<tr><th colspan="4"><strong>{$lang.video_statistics}</strong></th></tr>
+      <tr>
+        <td width="10%">{$lang.video_count}£º</td>
+        <td width="40%"><b>{$counts.video_all}</b></td>
+        <td width="10%">{$lang.unaudited}£º</td>
+        <td width="40%"><b>{$counts.video_unaudited}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.video_best_count}£º</td>
+        <td><b>{$counts.video_commend}</b></td>
+        <td>{$lang.today_add}£º</td>
+        <td><b>{$counts.video_today}</b></td>
+      </tr>
+      <tr>
+        <td>{$lang.trash}£º</td>
+        <td><b>{$counts.video_trash}</b></td>
+        <td></td>
+        <td><b></b></td>
+      </tr>
+    </table>
+</div>
+<div class="main-div">
+  <table border="0" align="center" cellpadding="0" cellspacing="0" class="tongji">
+  <tr><th colspan="4"><strong>{$lang.server_info}</strong></th></tr>
+    <tr>
+      <td width="16%" height="30">{$lang.server_os}£º</td>
+      <td width="34%" height="30">{$sys_info.os}</td>
+      <td width="16%">{$lang.server_ip}£º</td>
+      <td width="34%">{$sys_info.ip}</td>
+    </tr>
+    
+    <tr>
+      <td height="30">{$lang.web_server}£º</td>
+      <td height="30">{$sys_info.web_server}</td>
+      <td>{$lang.php_ver}£º</td>
+      <td>{$sys_info.php_ver}</td>
+    </tr>
+    <tr>
+      <td height="30">{$lang.mysql_ver}£º</td>
+      <td height="30">{$sys_info.mysql_ver}</td>
+      <td>{$lang.server_issocket}£º</td>
+      <td>{$sys_info.socket}</td>
+    </tr>
+    <tr>
+      <td height="30">{$lang.server_iszlib}£º</td>
+      <td height="30">{$sys_info.zlib}</td>
+      <td>{$lang.server_max_upload}£º</td>
+      <td>{$sys_info.max_filesize}</td>
+    </tr>
+    <tr>
+      <td height="30">{$lang.safe_mode}£º</td>
+      <td height="30">{$sys_info.safe_mode}</td>
+      <td>{$lang.safe_mode_gid}£º</td>
+      <td>{$sys_info.safe_mode_gid}</td>
+    </tr>
+    <tr>
+      <td height="30">{$lang.gd_ver}£º</td>
+      <td height="30">{$sys_info.gd}</td>
+      <td>{$lang.web_charset}£º</td>
+      <td>{$sys_info.charset}</td>
+    </tr>
+  </table>
+</div>
+<div class="bottom-line"></div>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>{$article.title}_{$article.name}_{$cfg.sysname}</title>
+<meta name="keywords" content="{$cfg.keywords}" />
+<meta name="description" content="{$cfg.description}" />
+<link href="images/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+</head>
+
+<body>
+{include file='header.htm'}
+<div class="area">
+	<div class="left01" id="left">
+		<div class="banner"><script src="js/banner.js"></script></div>
+		<div class="yourpos"><a href="index.php">首页</a> >> <a href="arclist.php?cid={$article.cid}">{$article.name}</a> >> {$article.title}</div>
+		<div class="title-gray">{$article.title}</div>
+		<p>{$article.content}</p>
+		<div class="pagelink">
+			<div id="prevpage">{$prevpage}</div>
+			<div id="nextpage">{$nextpage}</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="right01" id="right">
+		<div class="title-big">最新消息</div>
+		<ul class="titlelist">
+			<!--{if $article.cid==2}-->
+			<!--{foreach from=$articles.2 item=arc}-->
+			<li><a href="{$arc.arcurl}"{if $article.id==$arc.id} class="selected"{/if}>{$arc.title}</a></li>
+			<!--{/foreach}-->
+			<!--{else}-->
+			<!--{foreach from=$category item=aa}-->
+			<li><a href="{$aa.caturl}"{if $article.cid==$aa.cid} class="selected"{/if}>{$aa.name}</a></li>
+			<!--{/foreach}-->
+			<!--{/if}-->
+		</ul>
+		<div class="blank"></div>
+		<div id="lhhz"><img src="images/pic-2.jpg" width="245" border="0" /></div>
+	</div>
+	<div class="clear"></div>
+</div>
+{include file='footer.htm'}

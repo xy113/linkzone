@@ -1,0 +1,48 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<div class="main-div">
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('log_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="ClearAll()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.log_clear}</b></span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+    <tr>
+      <th width="30"><input type="checkbox" onclick="checkAll(this,'log_id[]')" /></td>
+      <th width="90">{$lang.log_man}</th>
+      <th height="24">{$lang.log_info}</th>
+      <th width="120">{$lang.log_time}</th>
+      <th width="80" class="last">{$lang.log_ip}</th>
+    </tr>
+	<!--{foreach from=$logs item=log}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td><input name="log_id[]" type="checkbox" value="{$log.log_id}" onclick="checkThis(this)" /></td>
+      <td>{$log.log_user}</td>
+      <td>{$log.log_info}</td>
+      <td>{$log.log_time|date_format:'%Y-%m-%d %H:%M:%S'}</td>
+      <td>{$log.log_ip}</td>
+    </tr>
+	<!--{/foreach}-->
+  </table>
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('log_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="ClearAll()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.log_clear}</b></span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<script language="javascript">
+{literal}
+function ClearAll(){
+   if(confirm(drop_confirm)){
+	   x = new Ajax();
+	   x.get('?inajax=1&action=clear_all',function(s){
+	       if(s != ''){
+		       $('body-frame').innerHTML=s;
+		   }
+	   });
+   }
+}
+{/literal}
+</script>

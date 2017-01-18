@@ -1,0 +1,21 @@
+{include file='page_header.htm'}
+<div class="main-div">
+<div class="pos-div2"><h2>{$lang.cp_home} &raquo; {$lang.tpl_select}</h2></div>
+<div class="blank"></div>
+<h2 style="padding-left:10px;">{$lang.tpl_current}</h2>
+<div class="tmp-box">
+   <img src="../templates/{$cfg.template}/thumb.jpg" width="160" height="120" border="0" />
+   <div class="tmp-name"><b>{$cfg.template}</b></div>
+</div>
+<div class="blank" style="border-bottom:1px #CCCCCC solid;"></div>
+<div class="blank"></div>
+<h2 style="padding-left:10px;">{$lang.tpl_list}</h2>
+<!--{foreach from=$templets item=tmp}-->
+<div class="tmp-box">
+<a href="{$smarty.server.PHP_SELF}?action=save&tmp={$tmp.name}"><img src="{$tmp.img}" title="{$lang.click_choose}" width="160" height="120" border="0"/></a>
+<div class="tmp-name">{$tmp.name}</div>
+</div>
+<!--{/foreach}-->
+<div class="blank"></div>
+</div>
+<div class="bottom-line"></div>

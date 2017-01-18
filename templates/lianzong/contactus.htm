@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>联系连纵_{$cfg.sysname}</title>
+<meta name="keywords" content="{$cfg.keywords}" />
+<meta name="description" content="{$cfg.description}" />
+<link href="images/style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/common.js" type="text/javascript"></script>
+</head>
+
+<body>
+{include file='header.htm'}
+<div class="area">
+	<div class="left01" id="left">
+		<div class="banner"><script src="js/banner.js"></script></div>
+		<div class="yourpos"><a href="index.php">首页</a> >> 联系连纵</div>
+		<div class="title-gray">联系连纵</div>
+		<ul class="contactus">
+			<li>北京市连纵律师事务所</li>
+			<li>地址：{$condata.con_address}</li>
+			<li>电话：{foreach from=$condata.tel item=tel}{$tel} {/foreach}　传真：{foreach from=$condata.fax item=fax}{$fax} {/foreach}</li>
+			<li>邮箱：{foreach from=$condata.email item=email}{$email} {/foreach}</li>
+			<li>网址：<a href="http://www.linkzone.cn">www.linkzone.cn</a></li>
+		</ul>
+		<p><img src="images/map.jpg" border="0" width="690" height="662" /></p>
+	</div>
+	<div class="right01" id="right">
+		<div class="title-big">联系连纵</div>
+		<div class="blank"></div>
+		<div id="lhhz"><img src="images/pic-2.jpg" width="245" border="0" /></div>
+	</div>
+	<div class="clear"></div>
+</div>
+{include file='footer.htm'}

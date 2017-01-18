@@ -1,0 +1,27 @@
+{include file='page_header.htm'}
+<div class="main-div">
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="document.settings.submit()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save_edit}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<form name="settings" method="post" action="?action=saveconfig&op={$op}">
+<div class="blank"></div>
+{if $op=='basic'}
+{include file='libs/basic_set.htm'}
+{/if}
+{if $op=='optimization'}
+{include file='libs/optimization_set.htm'}
+{/if}
+{if $op=='attachment'}
+{include file='libs/attachments_set.htm'}
+{/if}
+{if $op=='img'}
+{include file='libs/image_set.htm'}
+{/if}
+<div class="blank"></div>
+</form>
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="document.settings.submit()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save_edit}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>

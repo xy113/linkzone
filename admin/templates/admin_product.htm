@@ -1,0 +1,177 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='addnew'|| $action=='edit'}-->
+{include file='libs/product_info.htm'}
+<!--{else}-->
+<div class="main-div">
+    <div class="pos-div">
+	     <h2>{$lang.cp_home} &raquo; {$lang.product_manage}　Total Records: {$records}</h2>
+		 <div class="searchbox">
+		      <input type="text" name="q" id="q" value="{$smarty.get.q}" class="textinput" style="width:145px;" />
+			  <span class="btn btn-dft" onclick="ListTable('&q='+document.getElementById('q').value)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.search}</span></span>
+		 </div>
+	</div>
+	<div class="toolbar">
+		<span class="pagebox">{$pagelink}</span>
+		{if $smarty.get.status==-1}
+		<span class="btn btn-dft" onclick="Drop('id[]','&page={$page}&status=-1')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.delete}</b></span></span>
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=restore&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.product_restore}</span></span>
+		{else}
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew&cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.product_add}</span></span>
+		<span id="btnbox">
+		   <span class="btnL" onclick="ShowSubMenu(this);" onmouseup="this.className='btnL-hover'" onmousedown="this.className='btnL-active'" onmouseout="this.className='btnL'" onmouseover="this.className='btnL-hover'" tabindex="0">{$lang.markas}
+			<ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="toggleTable('id[]','&action=audited&page={$page}&{$curl}')">{$lang.audited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unaudited&page={$page}&{$curl}')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=recommend&page={$page}&{$curl}')">{$lang.recommend}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unrecommend&page={$page}&{$curl}')">{$lang.unrecommend}</a></li>
+			</ul>
+	    </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.moveto}
+			<ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')">{$lang.trash}</a></li>
+				 <!--{foreach from=$category.0 item=group}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+				 <!--{assign var='sub' value=$group.cid}-->
+				 <!--{foreach from=$category.$sub item=menu}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+				 <!--{/foreach}-->
+				 <!--{/foreach}-->
+			</ul>
+		   </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.view}
+			<ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="ListTable('&t=unaudited')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=all')">{$lang.product_all}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=recommend')">{$lang.product_commend}</a></li>
+				 <li onmouseover="ShowSubMenu(this)" onmouseout="HideSubMenu(this)"><a href="javascript:;">{$lang.product_cat}<b class="arr2"></b></a>
+				     <ul>
+						 <!--{foreach from=$category.0 item=group}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+						 <!--{assign var='sub' value=$group.cid}-->
+						 <!--{foreach from=$category.$sub item=menu}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+						 <!--{/foreach}-->
+						 <!--{/foreach}-->
+					 </ul>
+				 </li>
+			</ul>
+		   </span><b class="arr"></b>
+		   	<span class="btnR" onclick="ShowSubMenu(this)" onmouseover="this.className='btnR-hover'" onmouseup="this.className='btnR-hover'" onmousedown="this.className='btnR-active'" onmouseout="this.className='btnR'" tabindex="0">
+		     <span>{$lang.more}
+			    <ul class="submenu" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				    <li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=ASC')">{$lang.ascorder}<b class="arr-asc"></b></a></li>
+					<li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=DESC')">{$lang.descorder}<b class="arr-desc"></b></a></li>
+				</ul>
+			 </span><b class="arr"></b>
+	       </span>
+	  </span>
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+  <form name="form2" method="post">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+      <tr>
+        <th width="20"><input type="checkbox" onclick="checkAll(this,'id[]')" /></th>
+		<th width="15" style="text-align:center;"><img src="images/icon_view.gif" title="{$lang.view}" border="0" /></th>
+        <th style="cursor:pointer;" title="{$lang.click_resort}" onclick="Sort('id','&status={$smarty.get.status}')">{$lang.product_name}</th>
+        <th width="80">上市日期</th>
+		<th width="60" style="cursor:pointer;" title="{$lang.click_resort}" onclick="Sort('price','&status={$smarty.get.status}')">{$lang.product_price}</th>
+        <th width="100">{$lang.product_size}</th>	
+		<th width="30" style="text-align:center;">{$lang.audited}</th>
+        <th width="30" style="text-align:center;">{$lang.recommend}</th>
+		<th width="30" style="text-align:center; cursor:pointer;" title="{$lang.click_resort}" onclick="Sort('views','&status={$smarty.get.status}')">{$lang.clicks}</th>
+		<th width="110" class="last" style="cursor:pointer;" title="{$lang.click_resort}" onclick="Sort('time','&status={$smarty.get.status}')">{$lang.pubdate}</th>
+      </tr>
+	  <!--{foreach from=$products item=pd}-->
+      <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+        <td><input name="id[]" type="checkbox" value="{$pd.id}" onclick="checkThis(this)" /></td>
+		<td style="text-align:center;"><a href="{$pd.prdurl}" target="_blank"><img src="images/icon_view.gif" title="{$lang.view}" border="0" /></a></td>
+        <td onmouseover="showMenuBox({$pd.id})" onmouseout="hideMenuBox({$pd.id})"><span title="{$lang.click_edit}" onclick="Edit(this,'edit_name',{$pd.id})">{$pd.proname}</span>
+		    <span class="c_box" id="box_{$pd.id}">
+			     <b class="icon-edit" title="{$lang.edit}" onclick="Location('{$smarty.server.PHP_SELF}?action=edit&id={$pd.id}')"></b>
+				 <b class="icon-drop" title="{$lang.drop}" onclick="DropOne({$pd.id},'{$curl}')"></b>
+			</span>
+		</td>
+		<td>{$pd.listingdate}</td>
+        <td><span onclick="javascript:Edit(this,'edit_price',{$pd.id})">{$pd.price}</span></td>
+        <td><span onclick="javascript:Edit(this,'edit_size',{$pd.id})">{$pd.size}</span></td>
+		<td style="text-align:center;"><img src="{if $pd.audited==1}images/yes.gif{else}images/no.gif{/if}" title="{$lang.click_switch}" onclick="toggle(this,'toggle_audited',{$pd.id})" /></td>
+        <td style="text-align:center;"><img src="{if $pd.recommend==1}images/yes.gif{else}images/no.gif{/if}" title="{$lang.click_switch}" onclick="toggle(this,'toggle_recommend',{$pd.id})" /></td>
+		<td style="text-align:center;">{$pd.views}</td>
+		<td><span class="mdate">{$pd.dateline|date_format:'%Y-%m-%d %H:%M:%S'}</span></td>
+      </tr>
+	  <!--{/foreach}-->
+		<tr>
+			<td colspan="8">{$lang.select}：
+			<a href="javascript:;" onclick="selectAll('id[]')">{$lang.selectall}</a> - 
+			<a href="javascript:;" onclick="cancelAll('id[]')">{$lang.noselect}</a> - 
+			<a href="javascript:;" onclick="reverseAll('id[]')">{$lang.reverseselect}</a> - 
+			<a href="javascript:;" onclick="ListTable('&t=recommend')">{$lang.recommend}</a> - 
+			<a href="javascript:;" onclick="ListTable('&t=unaudited')">{$lang.unaudited}</a>
+			</td>
+		</tr>
+    </table>
+  </form>
+	<div class="toolbar">
+		<span class="pagebox">{$pagelink}</span>
+		{if $smarty.get.status==-1}
+		<span class="btn btn-dft" onclick="Drop('id[]','&page={$page}&status=-1')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.delete}</b></span></span>
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=restore&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.product_restore}</span></span>
+		{else}
+		<span class="btn btn-dft" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+		{/if}
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew&cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.product_add}</span></span>
+		<span id="btnbox">
+		   <span class="btnL" onclick="ShowSubMenu(this);" onmouseup="this.className='btnL-hover'" onmousedown="this.className='btnL-active'" onmouseout="this.className='btnL'" onmouseover="this.className='btnL-hover'" tabindex="0">{$lang.markas}
+			<ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="toggleTable('id[]','&action=audited&page={$page}&{$curl}')">{$lang.audited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unaudited&page={$page}&{$curl}')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=recommend&page={$page}&{$curl}')">{$lang.recommend}</a></li>
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=unrecommend&page={$page}&{$curl}')">{$lang.unrecommend}</a></li>
+			</ul>
+	    </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.moveto}
+			<ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=remove&page={$page}&{$curl}')">{$lang.trash}</a></li>
+				 <!--{foreach from=$category.0 item=group}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+				 <!--{assign var='sub' value=$group.cid}-->
+				 <!--{foreach from=$category.$sub item=menu}-->
+				 <li><a href="javascript:;" onclick="toggleTable('id[]','&action=move&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+				 <!--{/foreach}-->
+				 <!--{/foreach}-->
+			</ul>
+		   </span><b class="arr"></b>
+		   <span class="btnM" onclick="ShowSubMenu(this)" onmouseup="this.className='btnM-hover'" onmousedown="this.className='btnM-active'" onmouseout="this.className='btnM'" onmouseover="this.className='btnM-hover'" tabindex="0">{$lang.view}
+			<ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+			     <li><a href="javascript:;" onclick="ListTable('&t=unaudited')">{$lang.unaudited}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=all')">{$lang.product_all}</a></li>
+				 <li><a href="javascript:;" onclick="ListTable('&t=recommend')">{$lang.product_commend}</a></li>
+				 <li onmouseover="ShowSubMenu(this)" onmouseout="HideSubMenu(this)"><a href="javascript:;">{$lang.product_cat}<b class="arr2"></b></a>
+				     <ul>
+						 <!--{foreach from=$category.0 item=group}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$group.cid}')"><b>{$group.name}</b></a></li>
+						 <!--{assign var='sub' value=$group.cid}-->
+						 <!--{foreach from=$category.$sub item=menu}-->
+						 <li><a href="javascript:;" onclick="ListTable('&cid={$menu.cid}')">　&raquo;{$menu.name}</a></li>
+						 <!--{/foreach}-->
+						 <!--{/foreach}-->
+					 </ul>
+				 </li>
+			</ul>
+		   </span><b class="arr"></b>
+		   	<span class="btnR" onclick="ShowSubMenu(this)" onmouseover="this.className='btnR-hover'" onmouseup="this.className='btnR-hover'" onmousedown="this.className='btnR-active'" onmouseout="this.className='btnR'" tabindex="0">
+		     <span>{$lang.more}
+			    <ul class="submenu-bottom" onmouseover="ShowMenu(this)" onmouseout="HideMenu(this)">
+				    <li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=ASC')">{$lang.ascorder}<b class="arr-asc"></b></a></li>
+					<li><a href="javascript:;" onclick="Sort('','&status={$smarty.get.status}&os=DESC')">{$lang.descorder}<b class="arr-desc"></b></a></li>
+				</ul>
+			 </span><b class="arr"></b>
+	       </span>
+	  </span>
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}&{$curl}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+</div>
+<!--{/if}-->

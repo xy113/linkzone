@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>系统提示_{$cfg.sysname}</title>
+<meta name="keywords" content="{$cfg.keywords}" />
+<meta name="description" content="{$cfg.description}" />
+<link href="images/style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="messagebox">
+	<!--{if $msg_type==1}-->
+	<h2 class="error">{$msg_detail}</h2>
+	<!--{else}-->
+	<h2 class="ok">{$msg_detail}</h2>
+	<!--{/if}-->
+	<div class="blank"></div>
+	<!--{if $auto_redirect}-->
+	<div class="messagediv"><a href="{$forwardurl}">页面将在<span id="thetimer">3</span>后自动跳转到下一页，如果页面长时间没有跳转，请点击从此处。</a></div>
+	<!--{/if}-->
+	<!--<div class="messagediv"><img src="images/arrow.gif" border="0" align="absmiddle" /> <a href="{$links.href}">{$links.text}</a></div> -->
+</div>
+<!--{if $auto_redirect}-->
+<script type="text/javascript">
+var num=3;
+var forwardurl='{$forwardurl}';
+{literal}
+function goback(){
+   num--;
+   if(num<1){
+      if(forwardurl){
+         window.location.href=forwardurl;
+	  }else{
+	     history.go(-1);
+	  }
+   }else{
+      document.getElementById('thetimer').innerHTML=num;
+   }
+}
+{/literal}
+setInterval('goback()',1000);
+</script>
+<!--{/if}-->

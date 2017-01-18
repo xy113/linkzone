@@ -1,0 +1,198 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='addnew'||$action=='edit'}-->
+<div class="main-div">
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="check_nav_submit(document.formnav)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+    <span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+<form name="formnav" method="post" action="{$smarty.server.PHP_SELF}?action=save">
+  <input type="hidden" name="nav_id" value="{$nav.nav_id}" />
+  <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+    <tr>
+      <td height="10" colspan="2"></td>
+    </tr>
+    <tr>
+      <td width="80">{$lang.nav_up}：</td>
+      <td>
+	     <select name="nav_up">
+		 <option value="0">设为顶级导航</option>
+		 {foreach from=$navs.top.0 item=navitem}
+		 <option value="{$navitem.nav_id}">{$navitem.nav_name}</option>
+		 {/foreach}
+		 {foreach from=$navs.mid.0 item=navitem}
+		 <option value="{$navitem.nav_id}">{$navitem.nav_name}</option>
+		 {/foreach}
+		 {foreach from=$navs.bot.0 item=navitem}
+		 <option value="{$navitem.nav_id}">{$navitem.nav_name}</option>
+		 {/foreach}
+		 </select>
+	  </td>
+    </tr>
+    <tr>
+      <td>{$lang.nav_open}：</td>
+      <td>
+      <input type="radio" name="nav_open" id="radio" value="1"{if $nav.nav_open==1} checked="checked"{/if} /> {$lang.yes}
+      <input type="radio" name="nav_open" id="radio2" value="0"{if $nav.nav_open!=1} checked="checked"{/if} /> {$lang.no}
+      </td>
+    </tr>
+    <tr>
+      <td>{$lang.nav_position}：</td>
+      <td><select name="nav_position" id="nav_position">
+        <option value="top" {if $nav.nav_position=='top'}selected="selected"{/if}>{$lang.nav_top}</option>
+        <option value="mid" {if $nav.nav_position=='mid'}selected="selected"{/if}>{$lang.nav_mid}</option>
+        <option value="bot" {if $nav.nav_position=='bot'}selected="selected"{/if}>{$lang.nav_bottom}</option>
+      </select>
+      </td>
+    </tr>
+    <tr>
+      <td>{$lang.nav_name}：</td>
+      <td><input name="nav_name" type="text" class="textinput" style="width:200px;" value="{$nav.nav_name}"{if $action=='edit'&&$nav.nav_type==0} readonly{/if} /></td>
+    </tr>
+    <tr>
+      <td>{$lang.nav_link}：</td>
+      <td><input name="nav_link" type="text" class="textinput" style="width:200px;" value="{$nav.nav_link}" {if $action=='edit'&&$nav.nav_type==0} readonly{/if} /></td>
+    </tr>
+    <tr>
+      <td>{$lang.nav_order}：</td>
+      <td><input name="nav_order" type="text" class="textinput" style="width:200px;" value="{$nav.nav_order}" /></td>
+    </tr>
+  <tr>
+      <td height="10" colspan="2"></td>
+  </tr>
+  </table>
+</form>
+<div class="toolbar">
+    <span class="btn btn-dft" onclick="check_nav_submit(document.formnav)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+    <span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+{literal}
+<script language="javascript" type="text/javascript">
+function check_nav_submit(obj){
+   if(!obj.nav_name.value){
+	  showError(nav_name_empty);
+	  return false;
+   }else if(!obj.nav_link.value){
+	  showError(nav_link_empty);
+	  return false;
+   }else{
+      obj.submit();
+	  return true;
+   }
+}
+</script>
+{/literal}
+<!--{else}-->
+<div class="main-div">
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="Drop('nav_id[]')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><strong>{$lang.drop}</strong></span></span>
+    <span class="btn btn-dft" onclick="Location('admin_nav.php?action=addnew')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.nav_add}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+  <table border="0" cellspacing="0" cellpadding="0" class="list">
+    <tr>
+      <th width="15"><input type="checkbox" onclick="checkAll(this,'nav_id[]')" /></th>
+      <th width="120" colspan="2">{$lang.nav_name}</th>
+	  <th>{$lang.nav_link}</th>
+      <th width="60">{$lang.nav_position}</th>
+      <th width="30" style="text-align:center;">{$lang.sort}</th>
+	  <th width="60">{$lang.nav_type}</th>
+      <th width="50" style="text-align:center;">{$lang.nav_open}</th>
+      <th width="50" class="last">{$lang.nav_display}</th>
+    </tr>
+	<!--{foreach from=$navs.top.0 item=nav}-->
+	<!--{assign var='sub' value=$nav.nav_id}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td><input type="checkbox" name="nav_id[]" value="{$nav.nav_id}" onclick="checkThis(this)" /></td>
+      <td colspan="2"><a href="{$smarty.server.PHP_SELF}?action=edit&nav_id={$nav.nav_id}"><b>{$nav.nav_name}</b></a></td>
+      <td><span onclick="Edit(this,'edit_link',{$nav.nav_id})">{$nav.nav_link}</span></td>
+	  <td style="color:#0000FF;">{$lang.nav_top}</td>
+      <td style="text-align:center;"><span onclick="javascript:Edit(this,'edit_order',{$nav.nav_id})">{$nav.nav_order}</span></td>
+      <td>{if $nav.nav_type==0}<span style="color:#FF0000;">{$lang.nav_system}</span>{else}{$lang.nav_user}{/if}</td>
+	  <td style="text-align:center;"><img onclick="toggle(this,'toggle_open',{$nav.nav_id})" src="{if $nav.nav_open==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+      <td style="text-align:center;"><img onclick="toggle(this,'toggle_display',{$nav.nav_id})" src="{if $nav.nav_display==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+    </tr>
+		<!--{foreach from=$navs.top.$sub item=nav}-->
+		<tr onmouseover="this.className='active'" onmouseout="this.className=''">
+		  <td></td>
+		  <td width="15"><input type="checkbox" name="nav_id[]" value="{$nav.nav_id}" onclick="checkThis(this)" /></td>
+		  <td><a href="{$smarty.server.PHP_SELF}?action=edit&nav_id={$nav.nav_id}">{$nav.nav_name}</a></td>
+		  <td><span onclick="Edit(this,'edit_link',{$nav.nav_id})">{$nav.nav_link}</span></td>
+		  <td style="color:#0000FF;">{$lang.nav_top}</td>
+		  <td style="text-align:center;"><span onclick="javascript:Edit(this,'edit_order',{$nav.nav_id})">{$nav.nav_order}</span></td>
+		  <td>{if $nav.nav_type==0}<span style="color:#FF0000;">{$lang.nav_system}</span>{else}{$lang.nav_user}{/if}</td>
+		  <td style="text-align:center;"><img onclick="toggle(this,'toggle_open',{$nav.nav_id})" src="{if $nav.nav_open==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		  <td style="text-align:center;"><img onclick="toggle(this,'toggle_display',{$nav.nav_id})" src="{if $nav.nav_display==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		</tr>
+		<!--{/foreach}-->
+	<!--{/foreach}-->
+	<tr bgcolor="#FFFFFF"><td colspan="9" style="height:10px;"></td></tr>
+	<!--{foreach from=$navs.mid.0 item=nav}-->
+	<!--{assign var='sub' value=$nav.nav_id}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td><input type="checkbox" name="nav_id[]" value="{$nav.nav_id}" onclick="checkThis(this)" /></td>
+      <td colspan="2"><a href="{$smarty.server.PHP_SELF}?action=edit&nav_id={$nav.nav_id}"><b>{$nav.nav_name}</b></a></td>
+      <td><span onclick="Edit(this,'edit_link',{$nav.nav_id})">{$nav.nav_link}</span></td>
+	  <td style="color:#FF0000;">{$lang.nav_mid}</td>
+      <td style="text-align:center;"><span onclick="javascript:Edit(this,'edit_order',{$nav.nav_id})">{$nav.nav_order}</span></td>
+      <td>{if $nav.nav_type==0}<span style="color:#FF0000;">{$lang.nav_system}</span>{else}{$lang.nav_user}{/if}</td>
+	  <td style="text-align:center;"><img onclick="toggle(this,'toggle_open',{$nav.nav_id})" src="{if $nav.nav_open==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+      <td style="text-align:center;"><img onclick="toggle(this,'toggle_display',{$nav.nav_id})" src="{if $nav.nav_display==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+    </tr>
+		<!--{foreach from=$navs.mid.$sub item=nav}-->
+		<tr onmouseover="this.className='active'" onmouseout="this.className=''">
+		  <td></td>
+		  <td width="15"><input type="checkbox" name="nav_id[]" value="{$nav.nav_id}" onclick="checkThis(this)" /></td>
+		  <td><a href="{$smarty.server.PHP_SELF}?action=edit&nav_id={$nav.nav_id}">{$nav.nav_name}</a></td>
+		  <td><span onclick="Edit(this,'edit_link',{$nav.nav_id})">{$nav.nav_link}</span></td>
+		  <td style="color:#FF0000;">{$lang.nav_mid}</td>
+		  <td style="text-align:center;"><span onclick="javascript:Edit(this,'edit_order',{$nav.nav_id})">{$nav.nav_order}</span></td>
+		  <td>{if $nav.nav_type==0}<span style="color:#FF0000;">{$lang.nav_system}</span>{else}{$lang.nav_user}{/if}</td>
+		  <td style="text-align:center;"><img onclick="toggle(this,'toggle_open',{$nav.nav_id})" src="{if $nav.nav_open==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		  <td style="text-align:center;"><img onclick="toggle(this,'toggle_display',{$nav.nav_id})" src="{if $nav.nav_display==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		</tr>
+		<!--{/foreach}-->
+	<!--{/foreach}-->
+	<tr bgcolor="#FFFFFF"><td colspan="9" style="height:10px;"></td></tr>
+	<!--{foreach from=$navs.bot.0 item=nav}-->
+	<!--{assign var='sub' value=$nav.nav_id}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td><input type="checkbox" name="nav_id[]" value="{$nav.nav_id}" onclick="checkThis(this)" /></td>
+      <td colspan="2"><a href="{$smarty.server.PHP_SELF}?action=edit&nav_id={$nav.nav_id}"><b>{$nav.nav_name}</b></a></td>
+      <td><span onclick="Edit(this,'edit_link',{$nav.nav_id})">{$nav.nav_link}</span></td>
+	  <td style="color:#006600">{$lang.nav_bottom}</td>
+      <td style="text-align:center;"><span onclick="javascript:Edit(this,'edit_order',{$nav.nav_id})">{$nav.nav_order}</span></td>
+      <td>{if $nav.nav_type==0}<span style="color:#006600;">{$lang.nav_system}</span>{else}{$lang.nav_user}{/if}</td>
+	  <td style="text-align:center;"><img onclick="toggle(this,'toggle_open',{$nav.nav_id})" src="{if $nav.nav_open==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+      <td style="text-align:center;"><img onclick="toggle(this,'toggle_display',{$nav.nav_id})" src="{if $nav.nav_display==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+    </tr>
+		<!--{foreach from=$navs.bot.$sub item=nav}-->
+		<tr onmouseover="this.className='active'" onmouseout="this.className=''">
+		  <td></td>
+		  <td width="15"><input type="checkbox" name="nav_id[]" value="{$nav.nav_id}" onclick="checkThis(this)" /></td>
+		  <td><a href="{$smarty.server.PHP_SELF}?action=edit&nav_id={$nav.nav_id}">{$nav.nav_name}</a></td>
+		  <td><span onclick="Edit(this,'edit_link',{$nav.nav_id})">{$nav.nav_link}</span></td>
+		  <td style="color:#006600">{$lang.nav_bottom}</td>
+		  <td style="text-align:center;"><span onclick="javascript:Edit(this,'edit_order',{$nav.nav_id})">{$nav.nav_order}</span></td>
+		  <td>{if $nav.nav_type==0}<span style="color:#FF0000;">{$lang.nav_system}</span>{else}{$lang.nav_user}{/if}</td>
+		  <td style="text-align:center;"><img onclick="toggle(this,'toggle_open',{$nav.nav_id})" src="{if $nav.nav_open==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		  <td style="text-align:center;"><img onclick="toggle(this,'toggle_display',{$nav.nav_id})" src="{if $nav.nav_display==1}images/yes.gif{else}images/no.gif{/if}" border="0" /></td>
+		</tr>
+		<!--{/foreach}-->
+	<!--{/foreach}-->
+	<tr><td colspan="9">{$lang.select}:
+		<a href="javascript:;" onclick="selectAll('nav_id[]')">{$lang.selectall}</a> - 
+		<a href="javascript:;" onclick="cancelAll('nav_id[]')">{$lang.noselect}</a> - 
+		<a href="javascript:;" onclick="reverseAll('nav_id[]')">{$lang.reverseselect}</a>
+	</td></tr>
+  </table>
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="Drop('nav_id[]')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><strong>{$lang.drop}</strong></span></span>
+    <span class="btn btn-dft" onclick="Location('admin_nav.php?action=addnew')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.nav_add}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<!--{/if}-->

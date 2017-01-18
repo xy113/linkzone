@@ -1,0 +1,106 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='addnew'||$action=='edit'}-->
+<div class="main-div">
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="SendMail(document.form1)" onmouseover="this.className=btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.mail_post}</span></span>
+	<span class="btn btn-dft" onclick="SaveMail(document.form1)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+  <form id="form1" name="form1" method="post" action="{$smarty.server.PHP_SELF}?action=save">
+    <input type="hidden" name="mail_id" value="{$mail.mail_id}" />
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="form-table">
+      <tr>
+        <td>{$lang.mail_to}£º</td>
+        <td><input name="mail_to" type="text" value="{$mail.mail_to}" class="textinput" style="width:480px;" /> <input type="checkbox" name="mail_toall" value="1"{if $mail.mail_toall==1} checked="checked"{/if} /> {$lang.mail_toall}</td>
+      </tr>
+      <tr>
+        <td>{$lang.mail_subject}£º</td>
+        <td><input name="mail_subject" type="text" value="{$mail.mail_subject}" class="textinput" style="width:480px;" /></td>
+      </tr>
+      <tr>
+        <td width="50">{$lang.mail_from}£º</td>
+        <td><input name="mail_from" type="text" value="{if $mail.mail_from==''}{$cfg.sys_email}{else}{$mail.mail_from}{/if}" class="textinput" style="width:480px;" /></td>
+      </tr>
+      <tr>
+        <td>{$lang.mail_content}£º</td>
+        <td>{$maileditor}</td>
+      </tr>
+    </table>
+  </form>
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="SendMail(document.form1)" onmouseover="this.className=btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.mail_post}</span></span>
+	<span class="btn btn-dft" onclick="SaveMail(document.form1)" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload()" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+{literal}
+<script type="text/javascript">
+function SendMail(obj){
+    if(!obj.mail_to.value && obj.mail_toall.checked==false){
+	    showError(mail_to_empty);
+		return false;
+	}
+    if(!obj.mail_subject.value){
+	    showError(mail_subject_empty);
+		return false;
+	}
+	obj.action = 'admin_email.php?action=save&send=1';
+	obj.submit();
+}
+
+function SaveMail(obj){
+    if(!obj.mail_to.value && obj.mail_toall.checked==false){
+	    showError(mail_to_empty);
+		return false;
+	}
+    if(!obj.mail_subject.value){
+	    showError(mail_subject_empty);
+		return false;
+	}
+	obj.action = 'admin_email.php?action=save';
+	obj.submit();
+}
+</script>
+{/literal}
+<!--{else}-->
+<div class="main-div">
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('mail_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.mail_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="list">
+    <tr>
+      <th width="20"><input type="checkbox" onclick="checkAll(this,'mail_id[]')" /></td>
+      <th>{$lang.mail_subject}</th>
+      <th width="80">{$lang.mail_author}</th>
+      <th width="120" class="last">{$lang.mail_time}</th>
+    </tr>
+	<!--{foreach from=$mails item=mail}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td><input type="checkbox" name="mail_id[]" value="{$mail.mail_id}" onclick="checkThis(this)" /></td>
+      <td><a href="{$smarty.server.PHP_SELF}?action=edit&mail_id={$mail.mail_id}">{$mail.mail_subject}</a></td>
+      <td>{$mail.mail_author}</td>
+      <td><span class="mdate">{$mail.mail_time|date_format:'%Y-%m-%d %H:%M:%S'}</span></td>
+    </tr>
+	<!--{/foreach}-->
+    <tr>
+      <td colspan="4">{$lang.select}£º
+			<a href="javascript:;" onclick="selectAll('mail_id[]')">{$lang.selectall}</a> - 
+			<a href="javascript:;" onclick="cancelAll('mail_id[]')">{$lang.noselect}</a> - 
+			<a href="javascript:;" onclick="reverseAll('mail_id[]')">{$lang.reverseselect}</a>
+	  </td>
+  </tr>
+  </table>
+<div class="toolbar">
+    <span class="pagebox">{$pagelink}</span>
+	<span class="btn btn-dft" onclick="Drop('mail_id[]','&page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span><b>{$lang.drop}</b></span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.mail_add}</span></span>
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?page={$page}')" onmouseover="this.className='btn btn-hover'" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+<!--{/if}-->

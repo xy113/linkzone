@@ -1,0 +1,60 @@
+{include file='page_header.htm'}
+<div class="msg_r" id="msg"></div>
+<!--{if $action=='addnew'||$action=='edit'}-->
+{include file='libs/category_info.htm'}
+<!--{else}-->
+<div class="main-div">
+  <div class="toolbar">
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.cat_add}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload()" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+  <table border="0" cellspacing="0" cellpadding="0" class="list">
+    <tr>
+      <th width="240">{$lang.cat_name}</th>
+	  <th width="20" style="text-align:center;"><img src="images/icon_view.gif" border="0" /></th>
+      <th width="30" style="text-align:center; cursor:pointer;" onclick="Sort()" title="{$lang.click_resort}">{$lang.sort}</th>
+	  <th width="80" class="tocenter">允许发布内容</th>
+      <th height="24" class="last">{$lang.keywords}</th>
+    </tr>
+	<!--{foreach from=$categories.0 item=group key=key}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td style="font-weight:bold;" onmouseover="showMenuBox({$key})" onmouseout="hideMenuBox({$key})">
+	      <img src="images/menu_minus.gif" border="0" align="absmiddle" /> 
+	      <span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_name',{$group.cid})">{$group.name}</span> [ID:{$group.cid}] 
+	      <span class="c_box" id="box_{$key}">
+			  <b class="icon-edit" title="{$lang.edit}" onclick="Location('{$smarty.server.PHP_SELF}?action=edit&cid={$group.cid}')"></b>
+			  <b class="icon-drop" title="{$lang.drop}" onclick="DropCategory({$group.cid})"></b>
+			  <b class="icon-add" title="{$lang.add}" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew&cup={$group.cid}')"></b>
+		  </span>
+	  </td>
+	  <td class="tocenter"><a href="{$group.caturl}" target="_blank"><img src="images/icon_view.gif" title="{$lang.view}" border="0" /></a></td>
+      <td class="tocenter"><span title="{$lang.click_edit}" onclick="Edit(this,'edit_order',{$group.cid})">{$group.displayorder}</span></td>
+      <td class="tocenter"><img src="{if $group.disabled==0}images/yes.gif{else}images/no.gif{/if}" border="0" title="{$lang.click_switch}" onclick="toggle2(this,'toggle_disabled',{$group.cid})" /></td>
+	  <td><span title="{$lang.click_edit}" onclick="Edit(this,'edit_kw',{$group.cid})">{$group.keywords}</span></td>
+    </tr>
+	<!--{assign var='sub' value=$group.cid}-->
+    <!--{foreach from=$categories.$sub item=menu}-->
+    <tr onmouseover="this.className='active'" onmouseout="this.className=''">
+      <td style="padding-left:20px;" onmouseover="showMenuBox({$menu.cid})" onmouseout="hideMenuBox({$menu.cid})">
+	       <img src="images/menu_arrow.gif" border="0" align="absmiddle" /> 
+		   <span title="{$lang.click_edit}" onclick="javascript:Edit(this,'edit_name',{$menu.cid})">{$menu.name}</span>  [ID:{$menu.cid}]
+	       <span class="c_box" id="box_{$menu.cid}"> 
+			  <b class="icon-edit" title="{$lang.edit}" onclick="Location('{$smarty.server.PHP_SELF}?action=edit&cid={$menu.cid}')"></b>
+			  <b class="icon-drop" title="{$lang.drop}" onclick="DropCategory({$menu.cid})"></b>
+			  <b class="icon-add" title="{$lang.add}" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew&cup={$menu.cid}')"></b>
+		   </span>
+	  </td>
+	  <td style="text-align:center;"><a href="{$menu.caturl}" target="_blank"><img src="images/icon_view.gif" title="{$lang.view}" border="0" /></a></td>
+      <td style="text-align:center;"><span title="{$lang.click_edit}" onclick="Edit(this,'edit_order',{$menu.cid})">{$menu.displayorder}</span></td>
+      <td class="tocenter"><img src="{if $menu.disabled==0}images/yes.gif{else}images/no.gif{/if}" border="0" title="{$lang.click_switch}" onclick="toggle2(this,'toggle_disabled',{$menu.cid})" /></td>
+	  <td><span title="{$lang.click_edit}" onclick="Edit(this,'edit_kw',{$menu.cid})">{$menu.keywords}</span></td>
+    </tr>
+    <!--{/foreach}-->
+	<!--{/foreach}-->
+  </table>
+  <div class="toolbar">
+		<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?action=addnew')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.cat_add}</span></span>
+		<span class="btn btn-dft" onclick="window.location.reload()" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+  </div>
+</div>
+<!--{/if}-->

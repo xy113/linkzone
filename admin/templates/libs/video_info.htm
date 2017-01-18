@@ -1,0 +1,112 @@
+<div class="main-div">
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="return check_video_submit(document.video)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<!--{if $smarty.get.action=='edit'}-->
+	<span class="btn btn-dft" onclick="DropOne({$video.id},'&cid={$video.cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+	<!--{/if}-->
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+	<span class="ctrlenter">¡¡{$lang.ctrlenter}</span>
+</div>
+<form action="{$smarty.server.PHP_SELF}?action=save" method="post" name="video">
+  <input type="hidden" name="id" value="{$video.id}" />
+  <table border="0" cellspacing="0" cellpadding="0" class="form-table">
+    <tr>
+      <td width="65">{$lang.video_title}£º</td>
+      <td>
+	    <input name="title" type="text" value="{$video.title}" class="textinput" style="width:400px;" />
+		<span class="btn btn-dft" onclick="checkValue(document.video.title.value,'&action=checktitle','{$lang.video_exists}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.checkrepeat}</span></span>
+	  </td>
+    </tr>
+    <tr>
+      <td>{$lang.video_tags}£º</td>
+      <td><input name="tags" type="text" value="{$video.tags}"  class="textinput" style="width:400px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.video_cat}£º</td>
+      <td>
+	  <select name="cid">
+	  <!--{foreach from=$category.0 item=group}-->
+	  <option value="{$group.cid}"{$group.selected} class="big"{if $group.disabled==1} disabled="disabled"{/if}>{$group.name}</option>
+	  <!--{assign var='sub' value=$group.cid}-->
+	  <!--{foreach from=$category.$sub item=menu}-->
+	  <option value="{$menu.cid}"{$menu.selected}{if $menu.disabled==1} disabled="disabled"{/if>¡¡&raquo;{$menu.name}</option>
+	  <!--{/foreach}-->
+	  <!--{/foreach}-->
+      </select>¡¡
+	  </td>
+    </tr>
+    <tr>
+      <td>{$lang.video_type}£º</td>
+      <td height="28" class="form-right">
+        <input type="radio" name="type" value="1" {if $video.type==1||!$video.type}checked="checked"{/if}/> Flash Player¡¡
+		<input type="radio" name="type" value="2" {if $video.type==2}checked="checked"{/if} /> Media Player¡¡
+		<input type="radio" name="type" value="3" {if $video.type==3}checked="checked"{/if} /> Real Player¡¡
+      </td>
+    </tr>
+    <tr>
+      <td>{$lang.video_cover}£º</td>
+      <td>
+        <input name="image" type="text" value="{$video.image}"  class="textinput" style="width:400px;"  />
+		<span class="btn btn-dft" onclick="OpenDialog('video.image')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.upload}</span></span>
+      </td>
+    </tr>
+    <tr>
+      <td>{$lang.video_url}£º</td>
+      <td><input name="videourl" type="text" value="{$video.videourl}" class="textinput" style="width:400px;" /></td>
+    </tr>
+    <tr>
+      <td>{$lang.video_content}£º</td>
+      <td><textarea name="content" style="width:98%; height:200px;">{$video.content}</textarea></td>
+    </tr>
+	  <tr>
+	    <td></td>
+		<td>
+		   <input type="checkbox" name="allowcomment" value="1"{if $video.iscomment==1} checked="checked"{/if} /> {$lang.allowcomment}¡¡
+		   <input type="checkbox" name="allowvote" value="1"{if $video.isvote==1} checked="checked"{/if} /> {$lang.allowvote}¡¡
+		   <input type="checkbox" name="recommend" value="1"{if $video.isbest==1} checked="checked"{/if} /> {$lang.setrecommend}¡¡
+		   <input type="checkbox" name="audited" value="1"{if $video.audited==1} checked="checked"{/if} /> {$lang.passaudited}¡¡
+		</td>
+	  </tr>
+  </table>
+</form>
+<div class="toolbar">
+	<span class="btn btn-dft" onclick="return check_video_submit(document.video)" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.save}</span></span>
+	<!--{if $smarty.get.action=='edit'}-->
+	<span class="btn btn-dft" onclick="DropOne({$video.id},'&cid={$video.cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.drop}</span></span>
+	<!--{/if}-->
+	<span class="btn btn-dft" onclick="Location('{$smarty.server.PHP_SELF}?cid={$cid}')" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.back_list}</span></span>
+	<span class="btn btn-dft" onclick="window.location.reload();" onmouseup="this.className='btn btn-hover'" onmousedown="this.className='btn btn-active'" onmouseover="this.className='btn btn-hover'" onmouseout="this.className='btn btn-dft'" tabindex="0"><span>{$lang.refresh}</span></span>
+</div>
+</div>
+{literal}
+<script language="javascript">
+var hassubmited = false;
+function check_video_submit(formobj){
+    if(hassubmited)return false;
+	if(!trimStr(formobj.title.value)){
+		showError(video_title_empty)
+		return false;
+	}
+	if(!formobj.videourl.value){
+		showError(video_url_empty);
+		return false;
+	}
+	if(!formobj.content.value){
+		showError(video_content_empty);
+		return false;
+	}
+	hassubmited = true;
+	formobj.submit();
+	return true;
+}
+
+document.onkeydown = function(e){
+	e=window.event||e;
+	if(e.ctrlKey&&e.keyCode==13){
+	   check_video_submit(document.video);
+	   return false;
+	}
+}
+</script>
+{/literal}

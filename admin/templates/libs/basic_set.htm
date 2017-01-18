@@ -1,0 +1,64 @@
+<table border="0" cellpadding="0" cellspacing="0" class="form-table">
+<tr>
+  <td width="80">{$lang.site_name}£º</td>
+  <td><input name="sysname" type="text" value="{$cfg.sysname}" class="textinput" style="width:520px;" /></td>
+</tr>
+<tr>
+  <td>{$lang.site_url}£º</td>
+  <td><input name="sysurl" type="text" value="{$cfg.sysurl}" class="textinput" style="width:520px;" /></td>
+</tr>
+<tr>
+  <td>{$lang.site_keywords}£º</td>
+  <td><textarea name="keywords"  style="width:520px; height:60px;">{$cfg.keywords}</textarea></td>
+</tr>
+<tr>
+  <td>{$lang.site_description}£º</td>
+  <td><textarea name="description"  style="width:520px; height:60px;">{$cfg.description}</textarea></td>
+</tr>
+<tr>
+  <td>{$lang.closesite}£º</td>
+  <td>
+	<input name="isclosed" type="radio" value="1"{if $cfg.isclosed==1} checked="checked"{/if} /> {$lang.yes}¡¡
+	<input name="isclosed" type="radio" value="0"{if $cfg.isclosed==0} checked="checked"{/if} /> {$lang.no}      
+  </td>
+</tr>
+<tr>
+  <td>{$lang.whyclose}£º</td>
+  <td><textarea name="closenotic"  style="width:520px; height:60px;">{$cfg.closenotic}</textarea></td>
+</tr>
+
+<tr>
+  <td>{$lang.icp_info}£º</td>
+  <td><input name="icp" type="text" value="{$cfg.icp}" class="textinput"  style="width:520px;" /></td>
+</tr>
+<tr>
+  <td>{$lang.copyright_info}£º</td>
+  <td><textarea name="copyright"  style="width:520px; height:60px;">{$cfg.copyright}</textarea></td>
+</tr>
+<tr>
+  <td>{$lang.writelog}£º</td>
+  <td>
+	  <input type="radio" name="islog"  value="1"{if $cfg.islog==1} checked="checked"{/if} /> {$lang.yes}¡¡
+	  <input type="radio" name="islog"  value="0"{if $cfg.islog==0} checked="checked"{/if} /> {$lang.no}		  
+  </td>
+</tr>
+<tr>
+  <td>{$lang.checkcode}£º</td>
+  <td>
+	  <input type="radio" name="ischeckcode"  value="1"{if $cfg.ischeckcode==1} checked="checked"{/if} /> {$lang.yes}¡¡
+	  <input type="radio" name="ischeckcode"  value="0"{if $cfg.ischeckcode==0} checked="checked"{/if} /> {$lang.no}			
+  </td>
+</tr>
+<tr>
+  <td>{$lang.tongjicode}£º</td>
+  <td><textarea name="tongjicode" style="width:520px; height:60px;">{$cfg.tongjicode}</textarea></td>
+</tr>
+<tr>
+  <td>{$lang.slide_width}£º</td>
+  <td><input type="text" name="slide_width" value="{$cfg.slide_width}" class="textinput" /></td>
+</tr>
+<tr>
+  <td>{$lang.slide_height}£º</td>
+  <td><input type="text" name="slide_height" value="{$cfg.slide_height}" class="textinput" /></td>
+</tr>
+</table>
